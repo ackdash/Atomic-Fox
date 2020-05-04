@@ -8,8 +8,15 @@ namespace Code.Framework.Events
         [SerializeField] [InspectorName("AtomicEvent")]
         private AtomicEvent atomicEvent;
 
+        private AtomicEventPipeline atomicEventPipeline;
+
         [SerializeField] [InspectorName("Target")]
         private UnityEvent target;
+
+        private void Awake()
+        {
+            atomicEventPipeline = GetComponent<AtomicEventPipeline>();
+        }
 
         private void OnEnable()
         {
@@ -18,12 +25,13 @@ namespace Code.Framework.Events
 
         private void OnDisable()
         {
-            atomicEvent.UnRegister(this);
+            var hc = GetHashCode();
+            atomicEvent.UnRegister(hc);
         }
 
         public void OnEventTriggered()
         {
-            target.Invoke();
+            atomicEventPipeline.EnqueueAction(() => target.Invoke());
         }
     }
 }

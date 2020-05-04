@@ -6,21 +6,26 @@ namespace Code.Framework.Events
     [CreateAssetMenu]
     public class AtomicEvent : ScriptableObject
     {
-        private readonly List<AtomicEventListener> listeners = new List<AtomicEventListener>();
+        private readonly Dictionary<int, AtomicEventListener> listeners = new Dictionary<int, AtomicEventListener>();
 
         public void Register(AtomicEventListener listener)
         {
-            listeners.Add(listener);
+            listeners.Add(listener.GetHashCode(), listener);
         }
 
-        public void UnRegister<AtomicEventListener>(AtomicEventListener listener)
+        public void UnRegister(int hashCode)
         {
-            listeners.RemoveAll(a => a.GetHashCode() == listener.GetHashCode());
+            listeners.Remove(hashCode);
         }
 
         public void Trigger()
         {
-            for (var i = 0; i < listeners.Count; i++) listeners[i].OnEventTriggered();
+            foreach (var item in listeners)
+            {
+                item.Value.OnEventTriggered();
+            }
+
+            
         }
     }
 }

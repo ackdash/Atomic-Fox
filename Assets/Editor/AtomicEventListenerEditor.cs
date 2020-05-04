@@ -11,6 +11,12 @@ public class AtomicEventListenerEditor : Editor
 
         DrawDefaultInspector();
 
-        if (GUILayout.Button("Trigger Event")) targetComponent.OnEventTriggered();
+        if (GUILayout.Button("Trigger Event"))
+        {
+            if (Application.isPlaying)
+                targetComponent.OnEventTriggered();
+            else
+                Debug.LogWarning("You must be playing the game to trigger a game event.");
+        }
     }
 }
