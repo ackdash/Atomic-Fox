@@ -6,11 +6,11 @@ namespace Code.Events
     public class AtomicTriggerEnter2D : MonoBehaviour
     {
         [SerializeField] [InspectorName("Event")]
-        private AtomicEvent collisionEvent;
+        private AtomicEvent atomicEvent;
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            collisionEvent.Trigger();
+            atomicEvent.Trigger();
         }
     }
 }
