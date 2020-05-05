@@ -1,4 +1,4 @@
-﻿using Code.Framework.Events;
+﻿using Code.Events.Core;
 using UnityEngine;
 
 namespace Tests.Scripts

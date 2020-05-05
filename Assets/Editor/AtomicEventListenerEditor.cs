@@ -1,22 +1,25 @@
-﻿using Code.Framework.Events;
+﻿using Code.Events.Core;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(AtomicEventListener))]
-public class AtomicEventListenerEditor : Editor
+namespace Editor
 {
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(AtomicEventListener))]
+    public class AtomicEventListenerEditor : UnityEditor.Editor
     {
-        var targetComponent = (AtomicEventListener) target;
-
-        DrawDefaultInspector();
-
-        if (GUILayout.Button("Trigger Event"))
+        public override void OnInspectorGUI()
         {
-            if (Application.isPlaying)
-                targetComponent.OnEventTriggered();
-            else
-                Debug.LogWarning("You must be playing the game to trigger a game event.");
+            var targetComponent = (AtomicEventListener) target;
+
+            DrawDefaultInspector();
+
+            if (GUILayout.Button("Trigger Event"))
+            {
+                if (Application.isPlaying)
+                    targetComponent.OnEventTriggered();
+                else
+                    Debug.LogWarning("You must be playing the game to trigger a game event.");
+            }
         }
     }
 }
