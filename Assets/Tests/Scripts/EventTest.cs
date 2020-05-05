@@ -6,6 +6,6 @@ public class EventTest : MonoBehaviour
 
     public void TestEventHandler()
     {
-        Debug.Log($"Event triggered {++count}");
+        Debug.Log($"Event triggered {(++count).ToString()}");
     }
 }
