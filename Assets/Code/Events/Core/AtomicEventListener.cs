@@ -1,16 +1,17 @@
-﻿using UnityEngine;
+﻿using JetBrains.Annotations;
+using UnityEngine;
 using UnityEngine.Events;
 
-namespace Code.Framework.Events
+namespace Code.Events.Core
 {
     public class AtomicEventListener : MonoBehaviour
     {
-        [SerializeField] [InspectorName("AtomicEvent")]
+        [SerializeField] [InspectorName("AtomicEvent")] [UsedImplicitly]
         private AtomicEvent atomicEvent;
 
         private AtomicEventPipeline atomicEventPipeline;
 
-        [SerializeField] [InspectorName("Target")]
+        [SerializeField] [InspectorName("Target")] [UsedImplicitly]
         private UnityEvent target;
 
         private void Awake()

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Code.Framework.Events
+namespace Code.Events.Core
 {
     public class AtomicEventPipeline : MonoBehaviour
     {
