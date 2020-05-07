@@ -292,7 +292,7 @@ MonoBehaviour:
   target:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1707721185}
+      - m_Target: {fileID: 1707721187}
         m_MethodName: OnTurn
         m_Mode: 1
         m_Arguments:
@@ -443,6 +443,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1034092078}
   - component: {fileID: 1034092077}
+  - component: {fileID: 1034092079}
   m_Layer: 0
   m_Name: Sun
   m_TagString: Untagged
@@ -514,6 +515,25 @@ Transform:
   m_Father: {fileID: 1062849041}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1034092079
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1034092076}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9d30ed15037556549b3bd828da17ebf5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1062849040
 GameObject:
   m_ObjectHideFlags: 0
@@ -851,18 +871,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1707721185 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3365022285265260147, guid: bca342aee50077a46bb27e3da81e122a,
-    type: 3}
-  m_PrefabInstance: {fileID: 4389271593578475793}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1707721181}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17e68900568377f47941de4dbfd63c8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1707721187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -876,7 +884,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: 0
-  speed: 0
+  speed: 4
 --- !u!114 &1707721188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -923,6 +931,19 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1707721189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1707721181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c42520f8cd0401f95ce5b824f8067ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedShiftFactor: 0.05
 --- !u!1 &1789666210
 GameObject:
   m_ObjectHideFlags: 0
@@ -1118,5 +1139,6 @@ PrefabInstance:
       propertyPath: m_Simulated
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3365022285265260147, guid: bca342aee50077a46bb27e3da81e122a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: bca342aee50077a46bb27e3da81e122a, type: 3}
