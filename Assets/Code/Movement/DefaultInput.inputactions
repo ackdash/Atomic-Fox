@@ -3,36 +3,20 @@
     "maps": [
         {
             "name": "Player",
-            "id": "cc1aae7d-16db-4f50-9bcd-29edc9df1076",
+            "id": "fa426c17-ffa3-4a5f-99dd-677ecdbecbce",
             "actions": [
                 {
-                    "name": "left",
+                    "name": "Left",
                     "type": "Button",
-                    "id": "911f1e9b-09dd-4e8c-aea2-9408249a1d53",
+                    "id": "92b025a2-32f1-4c80-97c5-a16ec6d48b9c",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
                 },
                 {
-                    "name": "right",
+                    "name": "Right",
                     "type": "Button",
-                    "id": "0e78ea3f-069c-4626-a03e-3ed5cd42ba55",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "slowDown",
-                    "type": "Button",
-                    "id": "d2f873e7-216b-4717-95c2-a000a927129c",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "resetSpeed",
-                    "type": "Button",
-                    "id": "bff8fbc4-5356-4a04-a983-7807d5e34039",
+                    "id": "f53b0c23-5efc-4101-b651-c1ad51b6efc4",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -41,45 +25,50 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "c9a8bbc5-485c-4d6a-80fc-0393431e3e93",
+                    "id": "9da64297-c7b7-459c-b680-91553cb1a8a6",
                     "path": "<Keyboard>/leftArrow",
-                    "interactions": "Press",
+                    "interactions": "Press(behavior=2)",
                     "processors": "",
                     "groups": "",
-                    "action": "left",
+                    "action": "Left",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "d87ddbc4-88c3-4013-943d-2519a276e620",
+                    "id": "a3b77166-9392-4153-9102-894928aded5c",
                     "path": "<Keyboard>/rightArrow",
-                    "interactions": "",
+                    "interactions": "Press(behavior=2)",
                     "processors": "",
                     "groups": "",
-                    "action": "right",
+                    "action": "Right",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
+                }
+            ]
+        },
+        {
+            "name": "Test2",
+            "id": "9b5c7ec2-200a-4cd4-96bb-f29df79ed458",
+            "actions": [
+                {
+                    "name": "Left",
+                    "type": "Button",
+                    "id": "816823b6-b8fc-4e06-b799-38fdd96c86d8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
                 {
                     "name": "",
-                    "id": "20ad077b-be0a-486e-9f42-11c08ddca327",
-                    "path": "<Keyboard>/downArrow",
-                    "interactions": "",
+                    "id": "93742e64-1f94-48a6-abda-f0473f49fe9d",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "Press(behavior=2)",
                     "processors": "",
                     "groups": "",
-                    "action": "slowDown",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "6cbe4027-4a77-41b1-aaf4-c46ff0e64193",
-                    "path": "<Keyboard>/upArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "resetSpeed",
+                    "action": "Left",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

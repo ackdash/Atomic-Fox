@@ -1,12 +1,19 @@
-﻿using UnityEngine;
+﻿using Code.Interfaces;
+using UnityEngine;
 
 namespace Code.Movement
 {
-    public class SpeedController : MonoBehaviour
+    /// <summary>
+    /// Controls the movement speed of an object
+    /// Note: It's the responsibility of the movement controllers to decide
+    /// if an object should be moving or not. If the object does move, then it
+    /// should use the speed access via the property `CurrentSpeed`.
+    /// </summary>
+    public class SpeedController : MonoBehaviour, ICurrentSpeed
     {
         private readonly AnimationCurve curve = AnimationCurve.EaseInOut(0.0f, 0.0f, 2.0f, 2.0f);
-        
-        private float defaultSpeed = 1;
+
+        private float defaultSpeed;
 
         private bool isAccelerating;
 
@@ -19,7 +26,7 @@ namespace Code.Movement
 
         public float CurrentSpeed { get; private set; }
 
-        private void Awake()
+        private void Start()
         {
             CurrentSpeed = defaultSpeed;
             targetSpeed = defaultSpeed;
@@ -55,7 +62,7 @@ namespace Code.Movement
         {
             ResetSpeed();
         }
-        
+
         public void OnDecreaseSpeed()
         {
             CurrentSpeed *= speedShiftFactor;
@@ -79,7 +86,5 @@ namespace Code.Movement
             isAccelerating = false;
             CurrentSpeed = defaultSpeed;
         }
-
-        
     }
 }
