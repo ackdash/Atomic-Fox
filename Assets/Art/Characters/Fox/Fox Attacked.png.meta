@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: 8c5db32768a85a644839ac6ad1994ba3
+guid: 4a327234e5d38ae489ef7ac7746feee1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -734705009441078777
-    second: Fox Idle - looking at camera_0
+      213: -1797749675758716402
+    second: Fox Attacked_0
   - first:
-      213: 4353578255741671206
-    second: Fox Idle - looking at camera_1
+      213: 4804436709018522975
+    second: Fox Attacked_1
   - first:
-      213: 2669425032011494725
-    second: Fox Idle - looking at camera_2
+      213: -6652434790793151361
+    second: Fox Attacked_2
   - first:
-      213: 1517716095014729289
-    second: Fox Idle - looking at camera_3
+      213: 4986877665971696427
+    second: Fox Attacked_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Fox Idle - looking at camera_0
+      name: Fox Attacked_0
       rect:
         serializedVersion: 2
         x: 0
@@ -137,14 +137,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7028091cfadcdc5f0800000000000000
-      internalID: -734705009441078777
+      spriteID: e0af35dd13c1d07e0800000000000000
+      internalID: -1797749675758716402
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fox Idle - looking at camera_1
+      name: Fox Attacked_1
       rect:
         serializedVersion: 2
         x: 130
@@ -158,14 +158,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 627d85b7b540b6c30800000000000000
-      internalID: 4353578255741671206
+      spriteID: f5555ea5bb9cca240800000000000000
+      internalID: 4804436709018522975
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fox Idle - looking at camera_2
+      name: Fox Attacked_2
       rect:
         serializedVersion: 2
         x: 260
@@ -179,14 +179,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 545b4936ce3bb0520800000000000000
-      internalID: 2669425032011494725
+      spriteID: f7cf25bcdcdcda3a0800000000000000
+      internalID: -6652434790793151361
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fox Idle - looking at camera_3
+      name: Fox Attacked_3
       rect:
         serializedVersion: 2
         x: 390
@@ -200,8 +200,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 946fe394fb2001510800000000000000
-      internalID: 1517716095014729289
+      spriteID: b23729ac0d2f43540800000000000000
+      internalID: 4986877665971696427
       vertices: []
       indices: 
       edges: []

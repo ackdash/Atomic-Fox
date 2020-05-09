@@ -3,17 +3,17 @@ guid: 38d1a10fa2cb7aa4cbc740b6accdff09
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7936432671351567062
-    second: Fox run_0
+      213: 2155658998991076983
+    second: Fox Run_0
   - first:
-      213: -2506616407526471865
-    second: Fox run_1
+      213: 4823829799202629916
+    second: Fox Run_1
   - first:
-      213: 8937571468337288084
-    second: Fox run_2
+      213: -2000327310567721588
+    second: Fox Run_2
   - first:
-      213: 5081938673944999424
-    second: Fox run_3
+      213: 3868923969013967165
+    second: Fox Run_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -123,12 +123,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Fox run_0
+      name: Fox Run_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 100
+        width: 130
         height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -137,19 +137,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a2d0940d8802cd190800000000000000
-      internalID: -7936432671351567062
+      spriteID: 77ebcbb30707aed10800000000000000
+      internalID: 2155658998991076983
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fox run_1
+      name: Fox Run_1
       rect:
         serializedVersion: 2
-        x: 100
+        x: 130
         y: 0
-        width: 100
+        width: 130
         height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -158,19 +158,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 747083178a5b63dd0800000000000000
-      internalID: -2506616407526471865
+      spriteID: c19aa6605afa1f240800000000000000
+      internalID: 4823829799202629916
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fox run_2
+      name: Fox Run_2
       rect:
         serializedVersion: 2
-        x: 200
+        x: 260
         y: 0
-        width: 100
+        width: 130
         height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -179,19 +179,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 49319eca5e1a80c70800000000000000
-      internalID: 8937571468337288084
+      spriteID: c853913c8e86d34e0800000000000000
+      internalID: -2000327310567721588
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fox run_3
+      name: Fox Run_3
       rect:
         serializedVersion: 2
-        x: 300
+        x: 390
         y: 0
-        width: 100
+        width: 130
         height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -200,8 +200,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 006bfc67c4ca68640800000000000000
-      internalID: 5081938673944999424
+      spriteID: d396214f9dd21b530800000000000000
+      internalID: 3868923969013967165
       vertices: []
       indices: 
       edges: []
