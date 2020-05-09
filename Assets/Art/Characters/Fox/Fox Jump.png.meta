@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: 38d1a10fa2cb7aa4cbc740b6accdff09
+guid: ac6895b92b1a3c342b33891d1e0cdeae
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7936432671351567062
-    second: Fox run_0
+      213: 3574847051743030441
+    second: Fox Jump_0
   - first:
-      213: -2506616407526471865
-    second: Fox run_1
+      213: -4825974039586952881
+    second: Fox Jump_1
   - first:
-      213: 8937571468337288084
-    second: Fox run_2
+      213: -8049898823471573670
+    second: Fox Jump_2
   - first:
-      213: 5081938673944999424
-    second: Fox run_3
+      213: 2018178189912915148
+    second: Fox Jump_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -43,7 +43,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: -1
     aniso: -1
     mipBias: -100
     wrapU: 1
@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Fox run_0
+      name: Fox Jump_0
       rect:
         serializedVersion: 2
         x: 0
@@ -137,14 +137,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a2d0940d8802cd190800000000000000
-      internalID: -7936432671351567062
+      spriteID: 9acee7504786c9130800000000000000
+      internalID: 3574847051743030441
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fox run_1
+      name: Fox Jump_1
       rect:
         serializedVersion: 2
         x: 100
@@ -158,14 +158,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 747083178a5b63dd0800000000000000
-      internalID: -2506616407526471865
+      spriteID: f49a92b1e22b60db0800000000000000
+      internalID: -4825974039586952881
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fox run_2
+      name: Fox Jump_2
       rect:
         serializedVersion: 2
         x: 200
@@ -179,14 +179,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 49319eca5e1a80c70800000000000000
-      internalID: 8937571468337288084
+      spriteID: a5554259ba3094090800000000000000
+      internalID: -8049898823471573670
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fox run_3
+      name: Fox Jump_3
       rect:
         serializedVersion: 2
         x: 300
@@ -200,8 +200,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 006bfc67c4ca68640800000000000000
-      internalID: 5081938673944999424
+      spriteID: ccc3337fe52020c10800000000000000
+      internalID: 2018178189912915148
       vertices: []
       indices: 
       edges: []

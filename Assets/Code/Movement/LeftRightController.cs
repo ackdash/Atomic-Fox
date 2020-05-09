@@ -7,9 +7,7 @@ namespace Code.Movement
     public class LeftRightController : MonoBehaviour, ICurrentSpeed
     {
         private Animator animator;
-        private SpriteRenderer spriteRenderer;
-        public int direction;
-
+        private int direction;
         private bool leftIsDown;
         private bool rightIsDown;
 
@@ -23,45 +21,18 @@ namespace Code.Movement
         private void Awake()
         {
             animator = GetComponent<Animator>();
-            spriteRenderer = GetComponent<SpriteRenderer>();
             speedController = GetComponent<SpeedController>();
             if (speedController != null) speedController.SetDefaultSpeed(speed);
         }
 
-        public void OnLeft(InputValue btn)
+        private void Update()
         {
-            leftIsDown = btn.isPressed;
+            if (direction == Direction.None) return;
 
-            if (leftIsDown)
-            {
-                var ls = transform.localScale;
-                direction = Direction.Left;
-                transform.localScale = new Vector3(-direction,ls.y, ls.z);
-                animator.SetFloat("HorizontalSpeed", 1f);
-                
-            }
-            else if (!rightIsDown)
-            {
-                OnStop();
-            }
-        }
+            var h = direction * Time.deltaTime;
+            var spd = speedController ? speedController.CurrentSpeed : speed;
 
-        public void OnRight(InputValue btn)
-        {
-            rightIsDown = btn.isPressed;
-
-            if (rightIsDown)
-            {
-                var ls = transform.localScale;
-                direction = Direction.Right;
-                transform.localScale = new Vector3(-direction ,ls.y, ls.z);
-               
-                animator.SetFloat("HorizontalSpeed", 1f);
-            }
-            else if (!leftIsDown)
-            {
-                OnStop();
-            }
+            transform.Translate(Vector2.left * (h * spd), Space.World);
         }
 
         public void OnAutoLeft(InputValue btn)
@@ -79,20 +50,51 @@ namespace Code.Movement
             direction *= -1;
         }
 
+        public void OnLeft(InputValue btn)
+        {
+            leftIsDown = btn.isPressed;
+
+            if (leftIsDown) HeadLeft();
+            else if (rightIsDown) HeadRight();
+            else if (!leftIsDown && !rightIsDown) Stop();
+        }
+
+        public void OnRight(InputValue btn)
+        {
+            rightIsDown = btn.isPressed;
+
+            if (rightIsDown) HeadRight();
+            else if (leftIsDown) HeadLeft();
+            else if (!leftIsDown && !rightIsDown) Stop();
+        }
+
         public void OnStop()
+        {
+            Stop();
+        }
+
+        private void HeadLeft()
+        {
+            var t = transform;
+            var ls = t.localScale;
+            direction = Direction.Left;
+            t.localScale = new Vector3(-direction, ls.y, ls.z);
+            animator.SetFloat("HorizontalSpeed", 1f);
+        }
+
+        private void HeadRight()
+        {
+            var t = transform;
+            var ls = t.localScale;
+            direction = Direction.Right;
+            t.localScale = new Vector3(-direction, ls.y, ls.z);
+            animator.SetFloat("HorizontalSpeed", 1f);
+        }
+
+        private void Stop()
         {
             animator.SetFloat("HorizontalSpeed", 0);
             direction = Direction.None;
-        }
-
-        private void Update()
-        {
-            if (direction == Direction.None) return;
-
-            var h = direction * Time.deltaTime;
-            var spd = speedController ? speedController.CurrentSpeed : speed;
-
-            transform.Translate(Vector2.left * (h * spd), Space.World);
         }
 
         private struct Direction
