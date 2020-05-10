@@ -99,8 +99,8 @@ namespace Code.Movement
 
         private struct Direction
         {
-            public static int Left { get; } = -1;
-            public static int Right { get; } = 1;
+            public static int Left { get; } = 1;
+            public static int Right { get; } = -1;
             public static int None { get; } = 0;
         }
     }

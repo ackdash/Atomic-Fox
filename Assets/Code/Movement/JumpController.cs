@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Code.Movement
 {
@@ -14,7 +13,7 @@ namespace Code.Movement
         private float jumpCachedPosY;
 
         public float JumpDeltaProp;
-        private bool jumpPressed;
+
 
         private void Awake()
         {
@@ -27,17 +26,20 @@ namespace Code.Movement
             var t = transform;
             var p = t.position;
 
-            if (isJumping) t.position = new Vector2(p.x, jumpCachedPosY + JumpDeltaProp);
-            
+            // if (isJumping)
+                t.position = new Vector2(p.x, jumpCachedPosY + JumpDeltaProp);
+
+                if (t.position.y < jumpCachedPosY)
+                {
+                    t.position = new Vector2(p.x, jumpCachedPosY);
+                }
         }
 
         public void OnJump()
         {
-            print("s");
             animator.SetBool("IsJumping", true);
-            
+
             jumpCachedPosY = transform.position.y;
-            jumpPressed = true;
             isJumping = true; // btn.isPressed;
         }
 
