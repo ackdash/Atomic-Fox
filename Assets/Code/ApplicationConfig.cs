@@ -9,7 +9,7 @@ namespace Code
         private void Awake()
         {
             // QualitySettings.vSyncCount = 0;
-            Application.targetFrameRate = targetFrameRate;
+            // Application.targetFrameRate = targetFrameRate;
         }
 
         // // Update is called once per frame

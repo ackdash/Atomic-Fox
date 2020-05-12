@@ -70,7 +70,7 @@ public class @DefaultInput : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""02b6780d-8a0f-4164-91a5-208fb31b610e"",
                     ""path"": ""<Keyboard>/space"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Jump"",

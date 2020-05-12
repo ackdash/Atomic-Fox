@@ -21,7 +21,7 @@ namespace Code.Movement
             animator = GetComponent<Animator>();
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             var t = transform;
             var p = t.position;
@@ -37,6 +37,7 @@ namespace Code.Movement
 
         public void OnJump()
         {
+            Debug.Log("Hit it");
             animator.SetBool("IsJumping", true);
 
             jumpCachedPosY = transform.position.y;
