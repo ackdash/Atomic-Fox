@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Code.Movement
 {
@@ -26,28 +27,36 @@ namespace Code.Movement
             var t = transform;
             var p = t.position;
 
-            // if (isJumping)
-                t.position = new Vector2(p.x, jumpCachedPosY + JumpDeltaProp);
+            if (!isJumping) return;
+            
+            t.position = new Vector2(p.x, jumpCachedPosY + JumpDeltaProp);
 
-                if (t.position.y < jumpCachedPosY)
-                {
-                    t.position = new Vector2(p.x, jumpCachedPosY);
-                }
+            if (t.position.y < jumpCachedPosY)
+            {
+                t.position = new Vector2(p.x, jumpCachedPosY);
+            }
         }
 
         public void OnJump()
         {
-            Debug.Log("Hit it");
-            animator.SetBool("IsJumping", true);
+            if (isJumping) return;
+            
+            animator.SetInteger("IsJumping", 1);
 
             jumpCachedPosY = transform.position.y;
-            isJumping = true; // btn.isPressed;
+            isJumping = true;
         }
 
-        public void OnJumpFinished()
+        private void OnJumpFinished()
         {
-            animator.SetBool("IsJumping", false);
+            animator.SetInteger("IsJumping", 0);
             isJumping = false;
+        }
+        
+        // TODO: OnGroundChecks
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            OnJumpFinished();
         }
     }
 }

@@ -8,9 +8,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Level_1.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
+  - enabled: 0
     path: Assets/Tests/Scenes/Player Test Scene.unity
     guid: e23a3dff0939d4440b655bf098a84379
+  - enabled: 1
+    path: Assets/Tests/Scenes/Tile Scene.unity
+    guid: 04ec5bb113324b2478abc6e960e75f91
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 252c4549ee7248a488fc9a7a53ebff93,
       type: 2}
