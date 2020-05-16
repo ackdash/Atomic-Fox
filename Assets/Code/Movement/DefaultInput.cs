@@ -41,6 +41,22 @@ public class @DefaultInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""DecreaseSpeed"",
+                    ""type"": ""Button"",
+                    ""id"": ""e5add7eb-751c-4ddb-bcae-567065fca0f7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""IncreaseSpeed"",
+                    ""type"": ""Button"",
+                    ""id"": ""a1693fbb-312f-41a2-a907-8423878450ff"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -74,6 +90,28 @@ public class @DefaultInput : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""651f4794-d2f0-4370-9010-af69ac09e220"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DecreaseSpeed"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f07841b0-9415-4c88-8f6b-97db491b034f"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""IncreaseSpeed"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -114,6 +152,8 @@ public class @DefaultInput : IInputActionCollection, IDisposable
         m_Player_Left = m_Player.FindAction("Left", throwIfNotFound: true);
         m_Player_Right = m_Player.FindAction("Right", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
+        m_Player_DecreaseSpeed = m_Player.FindAction("DecreaseSpeed", throwIfNotFound: true);
+        m_Player_IncreaseSpeed = m_Player.FindAction("IncreaseSpeed", throwIfNotFound: true);
         // Test2
         m_Test2 = asset.FindActionMap("Test2", throwIfNotFound: true);
         m_Test2_Left = m_Test2.FindAction("Left", throwIfNotFound: true);
@@ -169,6 +209,8 @@ public class @DefaultInput : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Left;
     private readonly InputAction m_Player_Right;
     private readonly InputAction m_Player_Jump;
+    private readonly InputAction m_Player_DecreaseSpeed;
+    private readonly InputAction m_Player_IncreaseSpeed;
     public struct PlayerActions
     {
         private @DefaultInput m_Wrapper;
@@ -176,6 +218,8 @@ public class @DefaultInput : IInputActionCollection, IDisposable
         public InputAction @Left => m_Wrapper.m_Player_Left;
         public InputAction @Right => m_Wrapper.m_Player_Right;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
+        public InputAction @DecreaseSpeed => m_Wrapper.m_Player_DecreaseSpeed;
+        public InputAction @IncreaseSpeed => m_Wrapper.m_Player_IncreaseSpeed;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -194,6 +238,12 @@ public class @DefaultInput : IInputActionCollection, IDisposable
                 @Jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                @DecreaseSpeed.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDecreaseSpeed;
+                @DecreaseSpeed.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDecreaseSpeed;
+                @DecreaseSpeed.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDecreaseSpeed;
+                @IncreaseSpeed.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnIncreaseSpeed;
+                @IncreaseSpeed.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnIncreaseSpeed;
+                @IncreaseSpeed.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnIncreaseSpeed;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -207,6 +257,12 @@ public class @DefaultInput : IInputActionCollection, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @DecreaseSpeed.started += instance.OnDecreaseSpeed;
+                @DecreaseSpeed.performed += instance.OnDecreaseSpeed;
+                @DecreaseSpeed.canceled += instance.OnDecreaseSpeed;
+                @IncreaseSpeed.started += instance.OnIncreaseSpeed;
+                @IncreaseSpeed.performed += instance.OnIncreaseSpeed;
+                @IncreaseSpeed.canceled += instance.OnIncreaseSpeed;
             }
         }
     }
@@ -249,6 +305,8 @@ public class @DefaultInput : IInputActionCollection, IDisposable
         void OnLeft(InputAction.CallbackContext context);
         void OnRight(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnDecreaseSpeed(InputAction.CallbackContext context);
+        void OnIncreaseSpeed(InputAction.CallbackContext context);
     }
     public interface ITest2Actions
     {
