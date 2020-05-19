@@ -1,107 +1,60 @@
 ﻿using Code.Interfaces;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Code.Movement
 {
     public class LeftRightController : MonoBehaviour, ICurrentSpeed
     {
-        private Animator animator;
-        private int direction;
-        private bool leftIsDown;
-        private bool rightIsDown;
+        public Direction direction;
 
-        [SerializeField] [InspectorName("Speed")]
-        private float speed;
+        [SerializeField] private float speed;
 
         private SpeedController speedController;
 
-        public float CurrentSpeed => speedController.CurrentSpeed * direction;
+        public float HorizontalSpeed { get; private set; }
+
+        public float CurrentSpeed => speedController.CurrentSpeed * direction.AsFloat();
 
         private void Awake()
         {
-            animator = GetComponent<Animator>();
             speedController = GetComponent<SpeedController>();
+
             if (speedController != null) speedController.SetDefaultSpeed(speed);
         }
 
-        private void Update()
+        public float Calculate()
         {
-            if (direction == Direction.None) return;
+            if (direction == Direction.None) return 0;
 
-            var h = direction * Time.deltaTime;
-            var spd = speedController ? speedController.CurrentSpeed : speed;
-
-            transform.Translate(Vector2.left * (h * spd), Space.World);
+            var scaledDirection = -direction.AsFloat() * Time.deltaTime;
+            var desiredSpeed = speedController ? speedController.CurrentSpeed : speed;
+           
+            return  scaledDirection * desiredSpeed;
         }
 
-        public void OnAutoLeft(InputValue btn)
-        {
-            direction = Direction.Left;
-        }
+        public void HeadLeft() => SetHeading(Direction.Left);
 
-        public void OnAutoRight(InputValue btn)
-        {
-            direction = Direction.Right;
-        }
+        public void HeadRight() => SetHeading(Direction.Right);
 
-        public void OnTurn()
-        {
-            direction *= -1;
-        }
-
-        public void OnLeft(InputValue btn)
-        {
-            leftIsDown = btn.isPressed;
-
-            if (leftIsDown) HeadLeft();
-            else if (rightIsDown) HeadRight();
-            else if (!leftIsDown && !rightIsDown) Stop();
-        }
-
-        public void OnRight(InputValue btn)
-        {
-            rightIsDown = btn.isPressed;
-
-            if (rightIsDown) HeadRight();
-            else if (leftIsDown) HeadLeft();
-            else if (!leftIsDown && !rightIsDown) Stop();
-        }
-
-        public void OnStop()
-        {
-            Stop();
-        }
-
-        private void HeadLeft()
+        private void SetHeading(Direction heading)
         {
             var t = transform;
             var ls = t.localScale;
-            direction = Direction.Left;
-            t.localScale = new Vector3(-direction, ls.y, ls.z);
-            animator.SetFloat("HorizontalSpeed", 1f);
+            direction = heading;
+            t.localScale = new Vector3(-direction.AsFloat(), ls.y, ls.z);
+            HorizontalSpeed = 1f;
         }
 
-        private void HeadRight()
+        public void Turn()
         {
-            var t = transform;
-            var ls = t.localScale;
-            direction = Direction.Right;
-            t.localScale = new Vector3(-direction, ls.y, ls.z);
-            animator.SetFloat("HorizontalSpeed", 1f);
+            if (direction == Direction.Left) HeadRight();
+            else HeadLeft();
         }
 
-        private void Stop()
+        public void Stop()
         {
-            animator.SetFloat("HorizontalSpeed", 0);
             direction = Direction.None;
-        }
-
-        private struct Direction
-        {
-            public static int Left { get; } = 1;
-            public static int Right { get; } = -1;
-            public static int None { get; } = 0;
+            HorizontalSpeed = 0f;
         }
     }
 }

@@ -15,11 +15,11 @@ namespace Code.Movement
         private float defaultSpeed;
         private bool isAccelerating;
 
-        [SerializeField] [InspectorName("SpeedShift")] [Range(0f, 1f)]
+        [SerializeField] [Range(0f, 1f)]
         private float speedShiftFactor = 0.05f;
 
 
-        private float t;
+        private float curveStep;
         private float targetSpeed;
         public float CurrentSpeedNormalised { get; private set; }
         public float CurrentSpeed { get; private set; }
@@ -33,18 +33,17 @@ namespace Code.Movement
 
         private void Update()
         {
-            if (isAccelerating)
+            if (!isAccelerating) return;
+            
+            if (!Mathf.Approximately(targetSpeed, CurrentSpeed))
             {
-                if (!Mathf.Approximately(targetSpeed, CurrentSpeed))
-                {
-                    t += Time.deltaTime * 0.75f;
-                    CurrentSpeed = Mathf.Lerp(CurrentSpeed, targetSpeed, curve.Evaluate(t));
-                    CurrentSpeedNormalised = CurrentSpeed / defaultSpeed;
-                }
-                else
-                {
-                    isAccelerating = false;
-                }
+                curveStep += Time.deltaTime * 0.75f;
+                CurrentSpeed = Mathf.Lerp(CurrentSpeed, targetSpeed, curve.Evaluate(curveStep));
+                CurrentSpeedNormalised = CurrentSpeed / defaultSpeed;
+            }
+            else
+            {
+                isAccelerating = false;
             }
         }
 
@@ -70,14 +69,14 @@ namespace Code.Movement
 
         private void Accelerate(float factor)
         {
-            t = 0;
+            curveStep = 0;
             isAccelerating = true;
             targetSpeed = CurrentSpeed * speedShiftFactor;
         }
 
         private void ResetSpeed()
         {
-            t = 0;
+            curveStep = 0;
             isAccelerating = false;
             CurrentSpeed = defaultSpeed;
         }

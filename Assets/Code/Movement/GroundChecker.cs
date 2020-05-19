@@ -1,49 +1,34 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GroundChecker : MonoBehaviour
 {
-    [SerializeField]
-    [InspectorName("Ground Tag")]
+    [SerializeField] [InspectorName("Ground Tag")]
     private string groundTag;
-    
-    [SerializeField]
-    [InspectorName("Layer Mask")]
-    private LayerMask layerMask;
-    
-    [SerializeField]
-    [InspectorName("Distance to ground")]
-    private float radius;
 
-    
     private bool isOnGround;
 
-    public bool IsOnGround
-    {
-        get {
-            if (isOnGround) return isOnGround;
+    [SerializeField] [InspectorName("Layer Mask")]
+    private LayerMask layerMask;
 
-            var check= Physics2D.OverlapCircle(transform.position, radius, layerMask);
-           
-            return (Object)check != null;
-        }
-    }
-    
-    private bool IsChecking { get;  set; }
+    [SerializeField] [InspectorName("Distance to ground")]
+    private float radius;
 
-    private void OnTriggerEnter2D(Collider2D other)
+    public bool IsOnGround => isOnGround ? isOnGround : Check();
+
+    public bool Check()
     {
-        if (IsChecking && other.CompareTag(groundTag))
-        {
-            isOnGround = true;
-        }
+        var check = Physics2D.OverlapCircle(transform.position, radius, layerMask);
+        isOnGround = (object) check != null;
+        return isOnGround;
     }
 
     public void Reset()
     {
-        IsChecking = true;
         isOnGround = false;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!isOnGround && other.CompareTag(groundTag)) isOnGround = true;
     }
 }

@@ -8,6 +8,7 @@ namespace Code.Animation
         private Rigidbody2D rb;
 
         private float speedCache;
+        private static readonly int HorizontalSpeed = Animator.StringToHash("HorizontalSpeed");
 
         private void Start()
         {
@@ -19,8 +20,7 @@ namespace Code.Animation
         {
             
             var speed = Mathf.Abs(rb.velocity.x) * 100000000f;
-            Debug.Log(speed);
-            animator.SetFloat("HorizontalSpeed", speed);
+            animator.SetFloat(HorizontalSpeed, speed);
             
             if (!Mathf.Approximately(speed, speedCache))
             {

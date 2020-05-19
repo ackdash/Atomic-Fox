@@ -1,10 +1,12 @@
-﻿namespace Code.Interfaces.Game
+﻿using UnityEngine;
+
+namespace Code.Interfaces.Game
 {
     public interface ICollector
     {
-        void Collect();
+        void Collect(GameObject item);
 
-        void Drop();
+        // void Drop();
         
     }
 }

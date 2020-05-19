@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Level Tiles
   - Enemy
+  - PatrolTurnPoint
+  - CharacterGFX
+  - Fuel
+  - Ship
   layers:
   - Default
   - TransparentFX
@@ -15,10 +19,10 @@ TagManager:
   - UI
   - 
   - 
+  - Lighting
   - Player Character
   - Level Tiles
   - Enemy Character
-  - 
   - 
   - 
   - 
@@ -43,6 +47,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Player Character Sorting Layer
+  - name: Player Character
+    uniqueID: 51923575
+    locked: 0
+  - name: 'Enemy Character '
     uniqueID: 3928581071
     locked: 0

@@ -2,9 +2,9 @@
 {
     public interface ICollectable
     {
-        void Collected();
-
-        void Dropped();
+        // void Collected();
+        //
+        // void Dropped();
         
     }
 }

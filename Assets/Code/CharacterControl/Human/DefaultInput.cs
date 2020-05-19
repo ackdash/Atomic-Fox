@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/Code/Movement/DefaultInput.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/Code/CharacterControl/Human/DefaultInput.inputactions'
 
 using System;
 using System.Collections;
@@ -54,6 +54,14 @@ public class @DefaultInput : IInputActionCollection, IDisposable
                     ""name"": ""IncreaseSpeed"",
                     ""type"": ""Button"",
                     ""id"": ""a1693fbb-312f-41a2-a907-8423878450ff"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""c25f209f-6f2d-47a0-8f9d-20c7fe8a326b"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -114,6 +122,17 @@ public class @DefaultInput : IInputActionCollection, IDisposable
                     ""action"": ""IncreaseSpeed"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4174b4d6-9a31-4b41-b262-325709f46e4e"",
+                    ""path"": ""<Keyboard>/ctrl"",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -154,6 +173,7 @@ public class @DefaultInput : IInputActionCollection, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_DecreaseSpeed = m_Player.FindAction("DecreaseSpeed", throwIfNotFound: true);
         m_Player_IncreaseSpeed = m_Player.FindAction("IncreaseSpeed", throwIfNotFound: true);
+        m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
         // Test2
         m_Test2 = asset.FindActionMap("Test2", throwIfNotFound: true);
         m_Test2_Left = m_Test2.FindAction("Left", throwIfNotFound: true);
@@ -211,6 +231,7 @@ public class @DefaultInput : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_DecreaseSpeed;
     private readonly InputAction m_Player_IncreaseSpeed;
+    private readonly InputAction m_Player_Attack;
     public struct PlayerActions
     {
         private @DefaultInput m_Wrapper;
@@ -220,6 +241,7 @@ public class @DefaultInput : IInputActionCollection, IDisposable
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @DecreaseSpeed => m_Wrapper.m_Player_DecreaseSpeed;
         public InputAction @IncreaseSpeed => m_Wrapper.m_Player_IncreaseSpeed;
+        public InputAction @Attack => m_Wrapper.m_Player_Attack;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -244,6 +266,9 @@ public class @DefaultInput : IInputActionCollection, IDisposable
                 @IncreaseSpeed.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnIncreaseSpeed;
                 @IncreaseSpeed.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnIncreaseSpeed;
                 @IncreaseSpeed.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnIncreaseSpeed;
+                @Attack.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
+                @Attack.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
+                @Attack.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -263,6 +288,9 @@ public class @DefaultInput : IInputActionCollection, IDisposable
                 @IncreaseSpeed.started += instance.OnIncreaseSpeed;
                 @IncreaseSpeed.performed += instance.OnIncreaseSpeed;
                 @IncreaseSpeed.canceled += instance.OnIncreaseSpeed;
+                @Attack.started += instance.OnAttack;
+                @Attack.performed += instance.OnAttack;
+                @Attack.canceled += instance.OnAttack;
             }
         }
     }
@@ -307,6 +335,7 @@ public class @DefaultInput : IInputActionCollection, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnDecreaseSpeed(InputAction.CallbackContext context);
         void OnIncreaseSpeed(InputAction.CallbackContext context);
+        void OnAttack(InputAction.CallbackContext context);
     }
     public interface ITest2Actions
     {

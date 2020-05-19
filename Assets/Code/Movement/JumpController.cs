@@ -1,91 +1,42 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Code.Movement
 {
     public class JumpController : MonoBehaviour
     {
-        private Animator animator;
-        private FallChecker fallChecker;
-        private float gravityScaleCached;
-        private GroundChecker groundChecker;
+        [SerializeField] private float jumpCancelThreshold = 1.25f;
 
-        [SerializeField] [InspectorName("Speed")]
-        private bool isJumping;
-
-        private float jumpCachedPosY;
         public float JumpDeltaProp;
-        private Rigidbody2D rb;
-        private SpeedController speedController;
+        public float lastJumpDeltaProp;
+        public bool IsJumping { get; private set; }
 
-        private void Awake()
+        public event Action JumpEnded;
+
+        public float Calculate()
         {
-            animator = GetComponent<Animator>();
-            rb = GetComponent<Rigidbody2D>();
-            fallChecker = GetComponent<FallChecker>();
-            speedController = GetComponent<SpeedController>();
-            groundChecker = GetComponentInChildren<GroundChecker>();
+            if (!IsJumping) return 0;
 
-            jumpCachedPosY = transform.position.y;
-            gravityScaleCached = rb.gravityScale;
+            var result = JumpDeltaProp - lastJumpDeltaProp;
+            lastJumpDeltaProp = JumpDeltaProp;
+
+            return result;
         }
 
-        private void Update()
-        {
-            var t = transform;
-            var p = t.position;
+        public void Jump() => IsJumping = true;
 
-            if (fallChecker.IsFalling)
-            {
-                animator.SetFloat("FallSpeed", fallChecker.FallSpeed);
-                rb.gravityScale = gravityScaleCached * speedController.CurrentSpeedNormalised;
-            }
-            else
-            {
-                animator.SetFloat("FallSpeed", fallChecker.FallSpeed);
-            }
-
-            if (!isJumping) return;
-
-            animator.speed = speedController.CurrentSpeedNormalised;
-            t.position = new Vector2(p.x, jumpCachedPosY + JumpDeltaProp);
-        }
-
-        private void PrepForJump()
-        {
-            jumpCachedPosY = transform.position.y;
-            rb.gravityScale = 0f;
-            groundChecker.Reset();
-        }
-
-        private void Jump()
-        {
-            PrepForJump();
-            Debug.Log("Jump");
-            isJumping = true;
-            animator.SetBool("IsJumping", isJumping);
-        }
-
+        public void OnJumpFinished() => EndJump();
+        
         private void EndJump()
         {
-            rb.gravityScale = gravityScaleCached;
-            isJumping = false;
-            animator.SetBool("IsJumping", isJumping);
+            lastJumpDeltaProp = 0f;
+            IsJumping = false;
+            JumpEnded?.Invoke();
         }
 
-        public void OnJump()
+        private void OnCollisionEnter2D()
         {
-            if (!isJumping && !fallChecker.IsFalling && groundChecker.IsOnGround) Jump();
-        }
-
-        public void OnJumpFinished()
-        {
-            EndJump();
-        }
-
-
-        private void OnCollisionEnter2D(Collision2D other)
-        {
-            if (isJumping) EndJump();
+            if (IsJumping && JumpDeltaProp > jumpCancelThreshold) EndJump();
         }
     }
 }
