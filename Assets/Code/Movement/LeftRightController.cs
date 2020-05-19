@@ -26,7 +26,7 @@ namespace Code.Movement
         {
             if (direction == Direction.None) return 0;
 
-            var scaledDirection = -direction.AsFloat() * Time.deltaTime;
+            var scaledDirection = direction.AsFloat() * Time.deltaTime;
             var desiredSpeed = speedController ? speedController.CurrentSpeed : speed;
            
             return  scaledDirection * desiredSpeed;
@@ -41,7 +41,7 @@ namespace Code.Movement
             var t = transform;
             var ls = t.localScale;
             direction = heading;
-            t.localScale = new Vector3(-direction.AsFloat(), ls.y, ls.z);
+            t.localScale = new Vector3(direction.AsFloat(), ls.y, ls.z);
             HorizontalSpeed = 1f;
         }
 
