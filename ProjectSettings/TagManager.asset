@@ -53,3 +53,9 @@ TagManager:
   - name: 'Enemy Character '
     uniqueID: 3928581071
     locked: 0
+  - name: Collectable
+    uniqueID: 1247773901
+    locked: 0
+  - name: FuelPlant
+    uniqueID: 2058116531
+    locked: 0

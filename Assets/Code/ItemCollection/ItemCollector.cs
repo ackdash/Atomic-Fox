@@ -7,7 +7,7 @@ namespace Code.ItemCollection
 {
     public class ItemCollector : MonoBehaviour, ICollector
     {
-        private List<GameObject> CollectedItems = new List<GameObject>();
+        private List<Transform> CollectedItems = new List<Transform>();
 
         public void Collect(GameObject item)
         {
@@ -30,33 +30,31 @@ namespace Code.ItemCollection
             var collectable = other.gameObject.GetComponent<ICollectable>();
 
             var collector = other.gameObject.GetComponent<ICollector>();
-            // Debug.Log($"OnTriggerEnter2D up {other.tag}");
+
             if (collector != null)
             {
-                // Debug.Log($"SDSDSDSDSDS {other.tag}");
+                
                 CollectedItems.ForEach((a) =>
                 {
                     var _pc = a.GetComponent<ParentConstraint>();
                     _pc.RemoveSource(0);
-                    a.transform.position = a.transform.parent.position;
+                    a.position = a.parent.position;
                     var col = a.GetComponent<Collider2D>();
                     col.enabled = true;
                 });
 
-
-                CollectedItems = new List<GameObject>();
-                // other.enabled = false;
-                // var pc = other.gameObject.GetComponent<ParentConstraint>();
-                // var sc = new ConstraintSource {sourceTransform = transform, weight = 1};
-                // pc.AddSource(sc);
+                CollectedItems = new List<Transform>();
+              
             }
-            else if (collectable != null)
+            
+            if (collectable != null)
             {
                 other.enabled = false;
                 var pc = other.gameObject.GetComponent<ParentConstraint>();
-                var sc = new ConstraintSource {sourceTransform = transform, weight = 0f};
+                var sc = new ConstraintSource {sourceTransform = transform, weight = 1f};
+                
                 pc.AddSource(sc);
-                CollectedItems.Add(other.gameObject);
+                CollectedItems.Add(other.transform);
             }
         }
     }
