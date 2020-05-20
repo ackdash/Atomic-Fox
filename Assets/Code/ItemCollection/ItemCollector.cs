@@ -28,13 +28,11 @@ namespace Code.ItemCollection
         private void OnTriggerEnter2D(Collider2D other)
         {
             var collectable = other.gameObject.GetComponent<ICollectable>();
-
             var collector = other.gameObject.GetComponent<ICollector>();
 
-            if (collector != null)
+            if (other.CompareTag("Ship"))
             {
-                
-                CollectedItems.ForEach((a) =>
+                CollectedItems.ForEach(a =>
                 {
                     var _pc = a.GetComponent<ParentConstraint>();
                     _pc.RemoveSource(0);
@@ -42,19 +40,32 @@ namespace Code.ItemCollection
                     var col = a.GetComponent<Collider2D>();
                     col.enabled = true;
                 });
-
                 CollectedItems = new List<Transform>();
-              
             }
-            
-            if (collectable != null)
+           
+            else if (collectable != null)
             {
                 other.enabled = false;
                 var pc = other.gameObject.GetComponent<ParentConstraint>();
                 var sc = new ConstraintSource {sourceTransform = transform, weight = 1f};
-                
+
                 pc.AddSource(sc);
                 CollectedItems.Add(other.transform);
+                
+            } else if (collector != null)
+            {
+                CollectedItems.ForEach(a =>
+                {
+                    var _pc = a.GetComponent<ParentConstraint>();
+                    _pc.RemoveSource(0);
+                    a.position = a.parent.position;
+                    var sc = new ConstraintSource {sourceTransform = transform, weight = 1f};
+                    var col = a.GetComponent<Collider2D>();
+                    _pc.AddSource(sc);
+                    col.enabled = true;
+                });
+
+                CollectedItems = new List<Transform>();
             }
         }
     }

@@ -10,6 +10,7 @@ TagManager:
   - CharacterGFX
   - Fuel
   - Ship
+  - Decorative
   layers:
   - Default
   - TransparentFX
@@ -23,7 +24,7 @@ TagManager:
   - Player Character
   - Level Tiles
   - Enemy Character
-  - 
+  - Decorative
   - 
   - 
   - 
@@ -58,4 +59,10 @@ TagManager:
     locked: 0
   - name: FuelPlant
     uniqueID: 2058116531
+    locked: 0
+  - name: Decorative - Back
+    uniqueID: 3432507769
+    locked: 0
+  - name: Decorative - Fore
+    uniqueID: 1773512685
     locked: 0
