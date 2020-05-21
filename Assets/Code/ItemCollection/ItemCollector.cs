@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Code.Interfaces.Game;
 using UnityEngine;
 using UnityEngine.Animations;
@@ -7,66 +8,71 @@ namespace Code.ItemCollection
 {
     public class ItemCollector : MonoBehaviour, ICollector
     {
-        private List<Transform> CollectedItems = new List<Transform>();
+        private readonly List<Transform> inventory = new List<Transform>();
+        public bool HasItems { get; private set; }
 
         public void Collect(GameObject item)
         {
-            Debug.Log($"Picked up {item.tag}");
+            var collectable = item.GetComponent<ICollectable>();
+            collectable?.Collect(transform);
         }
 
-        // Start is called before the first frame update
-        private void Start()
+        public event Action ItemCollected;
+
+        public event Action ItemDropped;
+
+
+        private void OnTriggerEnter2D(Collider2D other) => Collect(other);
+
+        private void OnCollisionEnter2D(Collision2D other) => Collect(other.collider);
+
+        public void DropItems()
         {
+            inventory.ForEach(a =>
+            {
+                var dropableItems = a.GetComponent<IDropable>();
+                dropableItems?.Drop();
+            });
+            inventory.Clear();
         }
 
-        // Update is called once per frame
-        private void Update()
+        public void Collect(Behaviour other)
         {
-        }
-
-
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            var collectable = other.gameObject.GetComponent<ICollectable>();
+            var collectableItem = other.gameObject.GetComponent<ICollectable>();
             var collector = other.gameObject.GetComponent<ICollector>();
 
             if (other.CompareTag("Ship"))
             {
-                CollectedItems.ForEach(a =>
+                inventory.ForEach(a =>
                 {
-                    var _pc = a.GetComponent<ParentConstraint>();
-                    _pc.RemoveSource(0);
-                    a.position = a.parent.position;
-                    var col = a.GetComponent<Collider2D>();
-                    col.enabled = true;
+                    var item = a.gameObject.GetComponent<IResetable>();
+                    item?.Reset();
                 });
-                CollectedItems = new List<Transform>();
+                inventory.Clear();
+                ItemDropped?.Invoke();
+                HasItems = false;
             }
-           
-            else if (collectable != null)
-            {
-                other.enabled = false;
-                var pc = other.gameObject.GetComponent<ParentConstraint>();
-                var sc = new ConstraintSource {sourceTransform = transform, weight = 1f};
 
-                pc.AddSource(sc);
-                CollectedItems.Add(other.transform);
-                
-            } else if (collector != null)
+            else if (collectableItem != null)
             {
-                CollectedItems.ForEach(a =>
-                {
-                    var _pc = a.GetComponent<ParentConstraint>();
-                    _pc.RemoveSource(0);
-                    a.position = a.parent.position;
-                    var sc = new ConstraintSource {sourceTransform = transform, weight = 1f};
-                    var col = a.GetComponent<Collider2D>();
-                    _pc.AddSource(sc);
-                    col.enabled = true;
-                });
-
-                CollectedItems = new List<Transform>();
+                HasItems = true;
+                inventory.Add(other.transform);
+                collectableItem.Collect(transform);
+                ItemCollected?.Invoke();
             }
+            // else 
+            
+            // if (collector != null)
+            // {
+            //     inventory.ForEach(a =>
+            //     {
+            //         var _pc = a.GetComponent<ParentConstraint>();
+            //         _pc.RemoveSource(0);
+            //         a.position = a.parent.position;
+            //     });
+            //     inventory.Clear();
+            //     HasItems = false;
+            // }
         }
     }
 }

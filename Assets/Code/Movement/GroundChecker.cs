@@ -1,34 +1,37 @@
 ﻿using UnityEngine;
 
-public class GroundChecker : MonoBehaviour
+namespace Code.Movement
 {
-    [SerializeField] [InspectorName("Ground Tag")]
-    private string groundTag;
-
-    private bool isOnGround;
-
-    [SerializeField] [InspectorName("Layer Mask")]
-    private LayerMask layerMask;
-
-    [SerializeField] [InspectorName("Distance to ground")]
-    private float radius;
-
-    public bool IsOnGround => isOnGround ? isOnGround : Check();
-
-    public bool Check()
+    public class GroundChecker : MonoBehaviour
     {
-        var check = Physics2D.OverlapCircle(transform.position, radius, layerMask);
-        isOnGround = (object) check != null;
-        return isOnGround;
-    }
+        [SerializeField] [InspectorName("Ground Tag")]
+        private string groundTag;
 
-    public void Reset()
-    {
-        isOnGround = false;
-    }
+        private bool isOnGround;
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (!isOnGround && other.CompareTag(groundTag)) isOnGround = true;
+        [SerializeField] [InspectorName("Layer Mask")]
+        private LayerMask layerMask;
+
+        [SerializeField] [InspectorName("Distance to ground")]
+        private float radius;
+
+        public bool IsOnGround => isOnGround ? isOnGround : Check();
+
+        public bool Check()
+        {
+            var check = Physics2D.OverlapCircle(transform.position, radius, layerMask);
+            isOnGround = (object) check != null;
+            return isOnGround;
+        }
+
+        public void Reset()
+        {
+            isOnGround = false;
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (!isOnGround && other.CompareTag(groundTag)) isOnGround = true;
+        }
     }
 }

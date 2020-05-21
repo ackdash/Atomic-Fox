@@ -34,6 +34,8 @@ namespace Code.Movement
             JumpEnded?.Invoke();
         }
 
+        public void CancelJump() => EndJump();
+      
         private void OnCollisionEnter2D()
         {
             if (IsJumping && JumpDeltaProp > jumpCancelThreshold) EndJump();

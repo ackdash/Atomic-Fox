@@ -17,9 +17,9 @@ public class DecorativeFlowerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        var tmpDirection = other.transform.position - transform.position;
+        var impact = other.transform.position - transform.position;
 
-        if (tmpDirection.x < 0f)
+        if (impact.x < 0f)
         {
             animator.SetBool(ShakeRight, true);
             light.transform.position = new Vector2(lightPos.x + 0.03f, lightPos.y);
