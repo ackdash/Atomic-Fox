@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Code.Events.Core
 {
     [CreateAssetMenu]
+    [Serializable]
     public class AtomicEvent : ScriptableObject
     {
         private readonly Dictionary<int, AtomicEventListener> listeners = new Dictionary<int, AtomicEventListener>();

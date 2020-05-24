@@ -97,7 +97,7 @@ namespace Code.CharacterControl
         private void Update()
         {
             var tp = transform.position;
-
+          
             var horizontalTranslation = leftRightController.Calculate();
             var verticalTranslation = jumpController.Calculate();
             var fallSpeed = fallChecker.Calculate();

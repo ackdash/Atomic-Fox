@@ -1,36 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Code.Interfaces.Game;
 using UnityEngine;
-using UnityEngine.Animations;
 
 namespace Code.ItemCollection
 {
     public class ItemCollector : MonoBehaviour, ICollector
     {
         private readonly List<Transform> inventory = new List<Transform>();
+
+        public bool CanCollect { get; set; }
         public bool HasItems { get; set; }
 
         public Transform GetItem(string itemTag)
         {
-            foreach (var item in inventory)
-            {
-                if (item.CompareTag(itemTag))
-                {
-                    return item;
-                }
-            }
-
-            return null;
-
+            return inventory.FirstOrDefault(item => item.CompareTag(itemTag));
         }
-
-        public bool CanCollect { get; set; }
 
         public void Clear()
         {
             inventory.Clear();
             HasItems = false;
+            ItemDropped?.Invoke();
         }
 
         public void Collect(GameObject item)
@@ -58,22 +50,20 @@ namespace Code.ItemCollection
             inventory.Clear();
         }
 
-        public void Collect(Behaviour other)
+        private void Collect(Component other)
         {
             if (!CanCollect) return;
-            
-            var collectableItem = other.gameObject.GetComponent<ICollectable>();
-            var collector = other.gameObject.GetComponent<ICollector>();
 
-           if (collectableItem != null)
-            {
-                HasItems = true;
-                inventory.Add(other.transform);
-                collectableItem.Collect(transform);
-                ItemCollected?.Invoke();
-            }
+            var collectableItem = other.gameObject.GetComponent<ICollectable>();
+
+            if (collectableItem == null) return;
+
+            HasItems = true;
+            inventory.Add(other.transform);
+            collectableItem.Collect(transform);
+            ItemCollected?.Invoke();
             // else 
-            
+
             // if (collector != null)
             // {
             //     inventory.ForEach(a =>

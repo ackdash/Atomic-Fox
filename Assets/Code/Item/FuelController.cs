@@ -1,20 +1,23 @@
 ﻿using System;
 using Code.ItemCollection;
+using Code.Movement;
 using UnityEngine;
+using UnityEngine.Animations;
 
-namespace Code.Movement
+namespace Code.Item
 {
     public class FuelController : MonoBehaviour
     {
         private FallChecker fallChecker;
-        public GameObject SplatParent;
-
-        [SerializeField] public bool IsCollected;
+        public GameObject splatParent;
+        public GameObject splatPrefab;
+        public ParentConstraint parentConstraint;
+        
+        [SerializeField] public bool isCollected;
 
         private ItemCollectable itemCollectable;
         private Rigidbody2D rb;
 
-        public GameObject splatPrefab;
         private void Start()
         {
             rb = GetComponent<Rigidbody2D>();
@@ -54,7 +57,9 @@ namespace Code.Movement
 
         private void Reset()
         {
+            if (parentConstraint) parentConstraint.RemoveSource(0);
             rb.gravityScale = 0f;
+            transform.position = transform.parent.position;
             PreventMovement();
         }
 
@@ -71,18 +76,18 @@ namespace Code.Movement
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (!itemCollectable.IsCollected
-                && SplatParent != null
+                && splatParent != null
                 && other.gameObject.CompareTag("Level Tiles"))
             {
-                // TODO: Simplify this
-                var impact = other.transform.position - transform.position;
-                var xImpact = Mathf.Abs(transform.position.x) - Mathf.Abs(impact.x);
+                var position = transform.position;
+                var impact = other.transform.position - position;
+                var xImpact = Mathf.Abs(position.x) - Mathf.Abs(impact.x);
                 var impactUnderneath = (xImpact> -0.5f && xImpact < 0.5f);
 
                 if (!impactUnderneath) return;
 
                 var splat =Instantiate(splatPrefab, transform);
-                splat.transform.parent = SplatParent.transform;
+                splat.transform.parent = splatParent.transform;
                 PreventMovement();
                 itemCollectable.Reset();
             }

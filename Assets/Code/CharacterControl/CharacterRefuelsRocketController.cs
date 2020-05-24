@@ -1,15 +1,16 @@
-﻿using System;
+﻿using Code.Events.Core;
 using Code.Interfaces.Game;
+using Data;
 using UnityEngine;
-using UnityEngine.Animations;
 
 namespace Code.CharacterControl
 {
-    public class RocketRefuel : MonoBehaviour
+    public class CharacterRefuelsRocketController : MonoBehaviour
     {
-        public GameObject rocket;
-        public int rocketId;
         public ICollector collector;
+        public AtomicEvent fuelCollectedEvent;
+        public GameObject rocket;
+        private int rocketId;
 
         public void Start()
         {
@@ -20,21 +21,19 @@ namespace Code.CharacterControl
         public void OnTriggerEnter2D(Collider2D other)
         {
             if (!collector.HasItems || other.gameObject.GetInstanceID() != rocketId) return;
-            
+
             var fuel = collector.GetItem("Fuel");
-            var _pc = fuel.GetComponent<ParentConstraint>();
+
+            if (fuel == null) return;
+
             var item = fuel.gameObject.GetComponent<IResetable>();
-               
-            var source = _pc.GetSource(0);
-            _pc.RemoveSource(0);
-            item?.Reset();
-            fuel.position = fuel.parent.position;
+
+            if (item == null || !other.CompareTag("Fuel Receptor")) return;
+            
+            fuelCollectedEvent.Trigger();
+
+            item.Reset();
             collector.Clear();
-            var fuelTank = other.GetComponent<RocketFuelTank>();
-            fuelTank.AddFuel(1f);
-
-            Debug.Log("Bingo!!!");
-
         }
     }
 }

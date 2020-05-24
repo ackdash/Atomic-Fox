@@ -13,6 +13,7 @@ TagManager:
   - Decorative
   - Blooming Flower
   - Hands
+  - Fuel Receptor
   layers:
   - Default
   - TransparentFX
@@ -50,11 +51,23 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Rocket - Background
-    uniqueID: 337944217
+  - name: Fuel Guage - Background
+    uniqueID: 2196869673
+    locked: 0
+  - name: Fuel Guage - Middle
+    uniqueID: 3203834855
+    locked: 0
+  - name: Fuel Guage - Foreground
+    uniqueID: 3992634013
     locked: 0
   - name: Decorative - Back
     uniqueID: 3432507769
+    locked: 0
+  - name: Rocket - Background Lighting
+    uniqueID: 1832187487
+    locked: 0
+  - name: Rocket - Background
+    uniqueID: 337944217
     locked: 0
   - name: Player Character
     uniqueID: 51923575

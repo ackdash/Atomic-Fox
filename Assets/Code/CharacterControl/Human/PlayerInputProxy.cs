@@ -7,12 +7,12 @@ namespace Code.CharacterControl.Human
 {
     public class PlayerInputProxy : MonoBehaviour
     {
-        public GameObject character;
+        public GameObject team;
         private CharacterController characterMovementController;
        
         private void Start()
         {
-            characterMovementController = character.GetComponent<CharacterController>();
+            characterMovementController = team.GetComponentInChildren<CharacterController>();
         }
 
         public void OnAttack(InputValue btn) => characterMovementController.Attack(btn);
