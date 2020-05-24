@@ -69,17 +69,18 @@ namespace Code.CharacterControl
 
         private void OnAttacked(Direction direction)
         {
+            itemCollector.CanCollect = false;
             animator.SetBool(IsAttacked, true);
             jumpController.CancelJump();
             if (hasItemCollector && itemCollector.HasItems)
             {
-             
                 itemCollector.DropItems();
             }
         }
 
         private void OnAttackFinished()
         {
+            itemCollector.CanCollect = true;
             animator.SetBool(IsAttacked, false);
         }
 

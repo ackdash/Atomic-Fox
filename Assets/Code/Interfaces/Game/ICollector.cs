@@ -6,7 +6,9 @@ namespace Code.Interfaces.Game
     {
         void Collect(GameObject item);
 
-        // void Drop();
-        
+        bool HasItems { get; set; }
+        Transform GetItem(string itemTag);
+        void Clear();
+
     }
 }

@@ -22,8 +22,7 @@ namespace Code.Movement
         
         private void Start()
         {
-            rb = GetComponent<Rigidbody2D>(); 
-    
+            rb = GetComponent<Rigidbody2D>();
         }
 
         private void OnCollisionEnter2D(Collision2D other)
@@ -46,17 +45,17 @@ namespace Code.Movement
             }
         }
 
-        private void OnCollisionStay2D(Collision2D other)
-        {
-            var isAttacker = other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Player");
-           
-            if (!isAttacker || IsUnderAttack) return;
-            
-            IsUnderAttack = true;
-            lastAttackedFrom = lastAttackedFrom == Direction.Left? Direction.Right : Direction.Left;
-            UnderAttack?.Invoke(lastAttackedFrom);
-            rb.AddForce(new Vector2(lastAttackedFrom.AsFloat(), OnStayForceYDirectionFactor) * OnStayForceMultiplier);
-        }
+        // private void OnCollisionStay2D(Collision2D other)
+        // {
+        //     var isAttacker = other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Player");
+        //    
+        //     if (!isAttacker || IsUnderAttack) return;
+        //     
+        //     IsUnderAttack = true;
+        //     lastAttackedFrom = lastAttackedFrom == Direction.Left? Direction.Right : Direction.Left;
+        //     UnderAttack?.Invoke(lastAttackedFrom);
+        //     rb.AddForce(new Vector2(lastAttackedFrom.AsFloat(), OnStayForceYDirectionFactor) * OnStayForceMultiplier);
+        // }
 
 
     }

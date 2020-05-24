@@ -9,7 +9,29 @@ namespace Code.ItemCollection
     public class ItemCollector : MonoBehaviour, ICollector
     {
         private readonly List<Transform> inventory = new List<Transform>();
-        public bool HasItems { get; private set; }
+        public bool HasItems { get; set; }
+
+        public Transform GetItem(string itemTag)
+        {
+            foreach (var item in inventory)
+            {
+                if (item.CompareTag(itemTag))
+                {
+                    return item;
+                }
+            }
+
+            return null;
+
+        }
+
+        public bool CanCollect { get; set; }
+
+        public void Clear()
+        {
+            inventory.Clear();
+            HasItems = false;
+        }
 
         public void Collect(GameObject item)
         {
@@ -38,22 +60,12 @@ namespace Code.ItemCollection
 
         public void Collect(Behaviour other)
         {
+            if (!CanCollect) return;
+            
             var collectableItem = other.gameObject.GetComponent<ICollectable>();
             var collector = other.gameObject.GetComponent<ICollector>();
 
-            if (other.CompareTag("Ship"))
-            {
-                inventory.ForEach(a =>
-                {
-                    var item = a.gameObject.GetComponent<IResetable>();
-                    item?.Reset();
-                });
-                inventory.Clear();
-                ItemDropped?.Invoke();
-                HasItems = false;
-            }
-
-            else if (collectableItem != null)
+           if (collectableItem != null)
             {
                 HasItems = true;
                 inventory.Add(other.transform);
@@ -67,7 +79,7 @@ namespace Code.ItemCollection
             //     inventory.ForEach(a =>
             //     {
             //         var _pc = a.GetComponent<ParentConstraint>();
-            //         _pc.RemoveSource(0);
+            //         
             //         a.position = a.parent.position;
             //     });
             //     inventory.Clear();

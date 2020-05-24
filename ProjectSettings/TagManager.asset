@@ -11,6 +11,8 @@ TagManager:
   - Fuel
   - Ship
   - Decorative
+  - Blooming Flower
+  - Hands
   layers:
   - Default
   - TransparentFX
@@ -25,8 +27,8 @@ TagManager:
   - Level Tiles
   - Enemy Character
   - Decorative
-  - 
-  - 
+  - Blooming Flower
+  - Fuel
   - 
   - 
   - 
@@ -48,6 +50,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Rocket - Background
+    uniqueID: 337944217
+    locked: 0
+  - name: Decorative - Back
+    uniqueID: 3432507769
+    locked: 0
   - name: Player Character
     uniqueID: 51923575
     locked: 0
@@ -60,8 +68,11 @@ TagManager:
   - name: FuelPlant
     uniqueID: 2058116531
     locked: 0
-  - name: Decorative - Back
-    uniqueID: 3432507769
+  - name: Rocket - Foreground
+    uniqueID: 248955827
+    locked: 0
+  - name: Blooming Flower
+    uniqueID: 2164029281
     locked: 0
   - name: Decorative - Fore
     uniqueID: 1773512685
