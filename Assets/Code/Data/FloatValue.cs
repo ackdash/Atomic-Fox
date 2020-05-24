@@ -1,7 +1,7 @@
 ﻿using Code.Interfaces;
 using UnityEngine;
 
-namespace Data
+namespace Code.Data
 {
     [CreateAssetMenu(fileName = "FloatValue", menuName = "Float Value", order = 1)]
     public class FloatValue : ScriptableObject, IAtomicFloat

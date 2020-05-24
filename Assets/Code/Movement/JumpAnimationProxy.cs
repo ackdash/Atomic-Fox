@@ -1,26 +1,25 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Code.Movement;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class JumpAnimationProxy : MonoBehaviour
+namespace Code.Movement
 {
-    private JumpController jumpController;
-    public float JumpDeltaProp;
-    
-    private void Awake()
+    public class JumpAnimationProxy : MonoBehaviour
     {
-        jumpController = GetComponentInParent<JumpController>();
-    }
+        private JumpController jumpController;
+        public float JumpDeltaProp;
     
-    private void Update()
-    {
-        jumpController.JumpDeltaProp = JumpDeltaProp;
-    }
+        private void Awake()
+        {
+            jumpController = GetComponentInParent<JumpController>();
+        }
     
-    public void OnJumpFinished()
-    {
-        jumpController.OnJumpFinished();
+        private void Update()
+        {
+            jumpController.JumpDeltaProp = JumpDeltaProp;
+        }
+    
+        public void OnJumpFinished()
+        {
+            jumpController.OnJumpFinished();
+        }
     }
 }
