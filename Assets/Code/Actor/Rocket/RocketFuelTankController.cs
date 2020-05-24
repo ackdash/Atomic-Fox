@@ -9,7 +9,7 @@ namespace Code.Actor.Rocket
     {
         private Vector3 activePosition;
 
-        [SerializeField] private FloatReference amountOfFuel;
+        [SerializeField] private IntReference amountOfFuel;
 
         [SerializeField] private FloatReference animationSpeed;
         private Collider2D collider;
@@ -35,7 +35,7 @@ namespace Code.Actor.Rocket
         private void Start()
         {
             collider.enabled = false;
-            amountOfFuel.Value = 0f;
+            amountOfFuel.Value = 0;
             inactivePosition = transform.position;
             activePosition = new Vector2(inactivePosition.x + distanceToProtude.Value, inactivePosition.y);
             TurnOffLights();
@@ -52,7 +52,7 @@ namespace Code.Actor.Rocket
                 transform.position = Vector2.MoveTowards(transform.position, inactivePosition, step);
         }
 
-        public void AddFuel(float amount)
+        public void AddFuel(int amount)
         {
             amountOfFuel.Value += amount;
         }

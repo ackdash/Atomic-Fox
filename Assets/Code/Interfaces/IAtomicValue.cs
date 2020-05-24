@@ -1,8 +1,8 @@
 ﻿namespace Code.Interfaces
 {
-    public interface IAtomicFloat
+    public interface IAtomicValue<T>
     {
-        float  Value
+        T  Value
         {
             get;
             set;

@@ -4,13 +4,13 @@ using Code.Interfaces;
 namespace Code.Data
 {
     [Serializable]
-    public class FloatReference : IAtomicValue<float>
+    public class IntReference : IAtomicValue<int>
     {
-        public float ConstantValue;
+        public int ConstantValue;
         public bool UseConstant;
-        public FloatValue Variable;
+        public IntValue Variable;
 
-        public float Value
+        public int Value
         {
             get => UseConstant ? ConstantValue : Variable.Value;
             set => Variable.Value = value;

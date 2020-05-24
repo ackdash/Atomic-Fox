@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 916af623045948b183697975de1bd187, type: 3}
-  m_Name: Team Fox 1 - Fuel
+  m_Name: Rocket - Target Fuel Value
   m_EditorClassIdentifier: 
-  _value: 0
+  _value: 9

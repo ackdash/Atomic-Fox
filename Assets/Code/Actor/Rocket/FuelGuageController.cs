@@ -6,7 +6,8 @@ namespace Code.Actor.Rocket
 {
     public class FuelGuageController : MonoBehaviour
     {
-        [SerializeField] private FloatReference amountOfFuel;
+        [SerializeField] private IntReference amountOfFuel;
+        [SerializeField] private int maxGaugeValue;
         public GameObject needle;
         private float needleWidthDefault;
         private float needleXPos;
@@ -20,9 +21,13 @@ namespace Code.Actor.Rocket
 
         public void UpdateGauge()
         {
-            needle.transform.localScale = new Vector2(needleWidthDefault * (amountOfFuel.Value + 1f), 1f);
+            if (amountOfFuel.Value > maxGaugeValue) return;
+
+            var currentFuelLevel = (float) amountOfFuel.Value;
+
+            needle.transform.localScale = new Vector2(needleWidthDefault * (currentFuelLevel + 1f), 1f);
             needle.transform.position = new Vector3(
-                needleXPos + 0.25f*needleWidthDefault * (amountOfFuel.Value ),
+                needleXPos + 0.25f*needleWidthDefault * currentFuelLevel ,
                 needle.transform.position.y, 0f);
             
         }

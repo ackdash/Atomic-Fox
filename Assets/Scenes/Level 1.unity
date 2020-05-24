@@ -257,6 +257,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7351141158221624395}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &121217784 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 888823964627711965, guid: da156a25833706a4d839db6d0a1f025f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1005859160}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &145977888 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3680438273873106588, guid: 7ea053579ecdf0d47ac324fa38aeef2c,
@@ -590,6 +596,7 @@ GameObject:
   - component: {fileID: 585920052}
   - component: {fileID: 585920054}
   - component: {fileID: 585920053}
+  - component: {fileID: 585920055}
   m_Layer: 0
   m_Name: Fox 1
   m_TagString: Untagged
@@ -632,11 +639,11 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8032125164476902417}
         m_MethodName: AddFuel
-        m_Mode: 4
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 1
           m_StringArgument: 
           m_BoolArgument: 0
@@ -663,6 +670,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 585920055}
+        m_MethodName: CheckIfComplete
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &585920054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -675,6 +693,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b5f8e45d1e844f2ac5d5c98188cfe49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &585920055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 585920051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6600c9ca4b83a264e97e4e26dfb2e600, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetFuelLevel:
+    ConstantValue: 0
+    UseConstant: 0
+    Variable: {fileID: 11400000, guid: 374bc99bbedc6d54f92f2e0a6c99bfb7, type: 2}
+  currentFuelLevel:
+    ConstantValue: 0
+    UseConstant: 0
+    Variable: {fileID: 11400000, guid: 830d3736ed00ee840b5e6c9a81167051, type: 2}
+  characterCompletedLevelEvent: {fileID: 11400000, guid: b208f14a894d92341a3b93d3247656f3,
+    type: 2}
 --- !u!1 &626031035
 GameObject:
   m_ObjectHideFlags: 0
@@ -1248,6 +1288,8 @@ GameObject:
   m_Component:
   - component: {fileID: 774061441}
   - component: {fileID: 774061442}
+  - component: {fileID: 774061444}
+  - component: {fileID: 774061443}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -1265,7 +1307,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.3222656, y: -14.451738, z: -11.779872}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 121217784}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1281,13 +1324,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f81b764bb6e621d4fad21b1cd2fe1307, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Players:
+  players:
   - {fileID: 1882943361}
-  - {fileID: 0}
-  PlayerFullyFulled:
-    ConstantValue: 0
-    UseConstant: 0
-    Variable: {fileID: 0}
+--- !u!114 &774061443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774061440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c9e2141878a4aa09d05d46055555897, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  atomicEvent: {fileID: 11400000, guid: b208f14a894d92341a3b93d3247656f3, type: 2}
+  target:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 774061442}
+        m_MethodName: LevelComplete
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &774061444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774061440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b5f8e45d1e844f2ac5d5c98188cfe49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &849821965 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5353892496054438770, guid: f1ce1fdea96e9f0458f3d635aa7e02ed,
@@ -1368,22 +1445,22 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 774061441}
     m_Modifications:
     - target: {fileID: 888823964627711965, guid: da156a25833706a4d839db6d0a1f025f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 2.3222656
       objectReference: {fileID: 0}
     - target: {fileID: 888823964627711965, guid: da156a25833706a4d839db6d0a1f025f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 14.451738
       objectReference: {fileID: 0}
     - target: {fileID: 888823964627711965, guid: da156a25833706a4d839db6d0a1f025f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 11.779872
       objectReference: {fileID: 0}
     - target: {fileID: 888823964627711965, guid: da156a25833706a4d839db6d0a1f025f,
         type: 3}
@@ -1408,7 +1485,7 @@ PrefabInstance:
     - target: {fileID: 888823964627711965, guid: da156a25833706a4d839db6d0a1f025f,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 888823964627711965, guid: da156a25833706a4d839db6d0a1f025f,
         type: 3}
@@ -3133,7 +3210,7 @@ PrefabInstance:
     - target: {fileID: 6464313341046669164, guid: 18e55a94742f32e47bffbcd70e9c1658,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6464313341046669164, guid: 18e55a94742f32e47bffbcd70e9c1658,
         type: 3}
@@ -3323,7 +3400,7 @@ Transform:
   m_Children:
   - {fileID: 145977888}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1411058970
 GameObject:
@@ -3388,7 +3465,7 @@ Transform:
   - {fileID: 1065174136}
   - {fileID: 1411058971}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1691036506 stripped
 Transform:
@@ -3425,7 +3502,7 @@ Transform:
   m_Children:
   - {fileID: 585920052}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1798676892
 PrefabInstance:
@@ -3457,7 +3534,7 @@ PrefabInstance:
     - target: {fileID: 2182670963069475379, guid: 2e5e9d4487fcf9342addba73b89da28b,
         type: 3}
       propertyPath: m_SortingLayer
-      value: 8
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 2182670963069475381, guid: 2e5e9d4487fcf9342addba73b89da28b,
         type: 3}
@@ -127907,6 +127984,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5576775490094409899, guid: b530f71d3ec0e614dadafe4216492810,
+        type: 3}
+      propertyPath: amountOfFuel.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 830d3736ed00ee840b5e6c9a81167051,
+        type: 2}
+    - target: {fileID: 5576775490094409899, guid: b530f71d3ec0e614dadafe4216492810,
+        type: 3}
+      propertyPath: maxGaugeValue
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b530f71d3ec0e614dadafe4216492810, type: 3}
 --- !u!1001 &7351141158221624395
@@ -127926,6 +128014,12 @@ PrefabInstance:
       propertyPath: amountOfFuel.OnChange
       value: 
       objectReference: {fileID: 11400000, guid: 7d4164911125cfd40a15edef9ab0e90f,
+        type: 2}
+    - target: {fileID: 681073410344917082, guid: 6ff8cfb351d0cb54bb4281aecbfb8702,
+        type: 3}
+      propertyPath: amountOfFuel.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 830d3736ed00ee840b5e6c9a81167051,
         type: 2}
     - target: {fileID: 681073410682682286, guid: 6ff8cfb351d0cb54bb4281aecbfb8702,
         type: 3}
