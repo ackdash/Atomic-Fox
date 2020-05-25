@@ -30,7 +30,7 @@ TagManager:
   - Decorative
   - Blooming Flower
   - Fuel
-  - 
+  - Fuel Splat
   - 
   - 
   - 
@@ -89,4 +89,7 @@ TagManager:
     locked: 0
   - name: Decorative - Fore
     uniqueID: 1773512685
+    locked: 0
+  - name: GUI
+    uniqueID: 1248280033
     locked: 0

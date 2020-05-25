@@ -8,6 +8,9 @@ TextureImporter:
   - first:
       213: -1855213944681206112
     second: Cardigan Attack - Orb_1
+  - first:
+      213: -4475771121127743478
+    second: Cardigan Attack - Orb_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -123,7 +126,7 @@ TextureImporter:
         x: 0
         y: 0
         width: 64
-        height: 100
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -144,7 +147,7 @@ TextureImporter:
         x: 64
         y: 0
         width: 64
-        height: 100
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,6 +157,27 @@ TextureImporter:
       bones: []
       spriteID: 0aeece42fb4f046e0800000000000000
       internalID: -1855213944681206112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cardigan Attack - Orb_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a00aa3501edd2e1c0800000000000000
+      internalID: -4475771121127743478
       vertices: []
       indices: 
       edges: []

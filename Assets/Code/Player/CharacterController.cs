@@ -71,6 +71,7 @@ namespace Code.Player
         {
             itemCollector.CanCollect = false;
             animator.SetBool(IsAttacked, true);
+            animator.SetBool(AnimatorIsCarrying, false);
             jumpController.CancelJump();
             if (hasItemCollector && itemCollector.HasItems)
             {

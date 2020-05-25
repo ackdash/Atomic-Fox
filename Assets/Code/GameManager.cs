@@ -1,38 +1,64 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Code.Events.Core;
-using Code.Interfaces;
+﻿using Code.Interfaces;
 using Code.Player.Human;
-using Data;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class GameManager : MonoBehaviour
+namespace Code
 {
-
-    public GameObject[] players;
-   
-    void Start()
+    public class GameManager : MonoBehaviour
     {
-        Debug.Log(players.Length);
-    }
 
-    void Update()
-    {
-        
-    }
-
-    public void LevelComplete()
-    {
-        foreach (var player in players)
+        public GameObject[] players;
+        private bool gameRunning = true;
+    
+        void Start()
         {
-            var inputProxy = player.GetComponent<PlayerInputProxy>();
-            
-            if (inputProxy.team)
+            Debug.Log(players.Length);
+        }
+
+        void Update()
+        {
+        
+        }
+
+        public void TimerDone()
+        {
+            if (gameRunning)
             {
-                var completor = inputProxy.team.GetComponent<ICompletor>();
-                Debug.Log($"{inputProxy.team.tag} Won => {(completor.TargetReached()).ToString()}");
+                gameRunning = false;
+                Debug.Log("Game Won");
             }
+            else
+            {
+                Debug.Log("Timer Finished but the game was won by player");
+            }
+        }
+    
+        public void LevelComplete()
+        {
+            if (!gameRunning)
+            {
+                Debug.Log("Timer Finished but the game was won by player");
+            }
+            else
+            {
+                Debug.Log("Game Won");
+            
+                var playerWon = false; 
+                foreach (var player in players)
+                {
+                    var inputProxy = player.GetComponent<PlayerInputProxy>();
+                
+                    if (inputProxy.team)
+                    {
+                        var completor = inputProxy.team.GetComponent<ICompletor>();
+                        Debug.Log($"{inputProxy.team.tag} Won => {(completor.TargetReached()).ToString()}");
+                        playerWon = true;
+                    }
+                    
+                    if (!playerWon) Debug.LogWarning("Nobody won");
+                }
+            }
+            
         }
     }
 }

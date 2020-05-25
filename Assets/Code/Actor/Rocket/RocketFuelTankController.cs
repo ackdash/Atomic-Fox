@@ -1,5 +1,5 @@
 ﻿using Code.Data;
-using Data;
+using Code.Events.Core;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
@@ -8,7 +8,7 @@ namespace Code.Actor.Rocket
     public class RocketFuelTankController : MonoBehaviour
     {
         private Vector3 activePosition;
-
+        [SerializeField] private int capacity;
         [SerializeField] private IntReference amountOfFuel;
 
         [SerializeField] private FloatReference animationSpeed;
@@ -25,11 +25,16 @@ namespace Code.Actor.Rocket
         private Light2D[] lights;
 
         private bool receptorIsActive;
-
+        
+        [SerializeField]
+        private AtomicEvent fuelTankFullEvent;
+        private bool fuelTankFullEventIsNull;
+        
         private void Awake()
         {
             lights = GetComponentsInChildren<Light2D>();
             collider = GetComponent<Collider2D>();
+            fuelTankFullEventIsNull = fuelTankFullEvent == null;
         }
 
         private void Start()
@@ -55,6 +60,10 @@ namespace Code.Actor.Rocket
         public void AddFuel(int amount)
         {
             amountOfFuel.Value += amount;
+            if (amountOfFuel.Value >= capacity && !fuelTankFullEventIsNull)
+            {
+                fuelTankFullEvent.Trigger();
+            }
         }
 
         public void ShowReceptor()
