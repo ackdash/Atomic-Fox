@@ -4,10 +4,16 @@ using UnityEngine;
 
 namespace Code.Events.Core
 {
+
     public class AtomicEventPipeline : MonoBehaviour
     {
+
         private readonly Queue<Action> queue = new Queue<Action>();
 
+        /// <summary>
+        /// Naive implementation of an event pipeline for discreet
+        /// events. Ran out of time to implement within the game jam.   
+        /// </summary>
         private void Update()
         {
             if (queue.Count > 0) FlushQueue();
