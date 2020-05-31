@@ -34,5 +34,10 @@ namespace Code.Actor.Rocket
         {
             gameObject.SetActive(false);
         }
+        
+        public void Show()
+                {
+                    gameObject.SetActive(true);
+                }
     }
 }

@@ -1,17 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Code.Movement;
+﻿using Code.Movement;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using CharacterController = Code.Movement.CharacterController;
 
 namespace Code.Player.AI
 {
-    public enum Descision {
+    public enum AiMovement
+    {
         Left,
         Right,
-        Stop,
-        Jump,
-        Attack
+        Stop
     }
+
+    public enum AiAction
+    {
+        Jump,
+        Attack,
+        Alert
+    }
+
 //
 // public class CardiganState
 // {
@@ -81,73 +88,157 @@ namespace Code.Player.AI
     public class PatrolController : MonoBehaviour
     {
         private bool isStuckCheckRunning;
+        private GroundChecker jumpCheck;
         private Direction lastDirection;
         private LeftRightController leftRightController;
+        private CharacterController characterController;
         private bool patrolling;
+        private GroundChecker turnChecker;
+        private AiMovement currentMovement;
+        private AiMovement PickMovement() => (AiMovement) Random.Range(0, 3);
+
+        private void SetMovement(AiMovement movement)
+        {
+            switch (movement)
+            {
+                case AiMovement.Left:
+                    characterController.Left();
+                    break;
+                case AiMovement.Right:
+                    characterController.Right();
+                    break;
+                case AiMovement.Stop:
+                    characterController.Right();
+
+                    // characterController.Stop();
+                    break;
+            }
+        }
 
         private void Awake()
         {
-            leftRightController = GetComponent<LeftRightController>();
+          
+
         }
 
         private void Start()
         {
+            characterController = GetComponent<CharacterController>();
+
+            var groundCheckers = GetComponentsInChildren<GroundChecker>();
+            foreach (var checker in groundCheckers)
+            {
+                if (checker.name.ToLower().Contains("sensor"))
+                    turnChecker = checker;
+                else
+                    jumpCheck = checker;
+            }
+
+            currentMovement = PickMovement();
+
+            turnChecker.LeftSurface += () => 
+            {
+                // Debug.Log("Must Turn");
+                currentMovement =  Turn();
+              //  Debug.Log("Should Turn");
+            };
+            
+           
+            // sideRightCheck.LeftSurface += () =>
+            // {
+            //     currentMovement = AiMovement.Left;
+            //     characterController.Left();
+            // };
         }
-    
+
+        private AiMovement Turn()
+        {
+            return currentMovement == AiMovement.Right ? AiMovement.Left: AiMovement.Right;
+        }
         private void Update()
         {
-            if (patrolling) return;
+            // transform.Translate(new Vector2(0.3f, 0));
+          
+           // if (!turnChecker.Check())
+           // {
+           //     Turn();
+           // }
+           // if (!jumpCheck.Check())
+           // {
+           //     characterController.Jump();
+           //     Turn();
+           // }
+           // Debug.Log(((int) currentMovement).ToString());
+           SetMovement(currentMovement);
 
-            leftRightController.HeadLeft();
-            patrolling = true;
+           // if (patrolling) return;
+            //
+            // leftRightController.HeadLeft();
+            // patrolling = true;
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.CompareTag("PatrolTurnPoint") || other.CompareTag("Level Tiles")) leftRightController.Turn();
+            if (other.CompareTag("PatrolTurnPoint"))
+            {
+                currentMovement = Turn();
+            }
+            if (other.CompareTag("PatrolTurnPoint"))
+            {
+                currentMovement = Turn();
+            }
+
+
+        }
+
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            // sideLeftCheck.LeftSurface 
+            // Debug.Log("Exit");
+            // characterController.Turn();
         }
 
         private void OnTriggerStay2D(Collider2D other)
         {
-            if (other.CompareTag("Player"))
-            {
-                leftRightController.Stop();
-            }
-            var pos = transform.position;
-            var hit = Physics2D.Raycast(new Vector3(pos.x,pos.y-1f,pos.z), Vector2.left * leftRightController.direction.AsFloat());
-        
-            Debug.DrawRay(new Vector3(pos.x,pos.y-1.1f,pos.z), Vector2.left * leftRightController.direction.AsFloat(), Color.red);
-
-            if (!isStuckCheckRunning && (object) hit.collider != null)
-            {
-                StartCoroutine(WaitAndCheckIfStuck(other));
-            }
+            // if (other.CompareTag("Player"))
+            // {
+            //     leftRightController.Stop();
+            // }
+            // var pos = transform.position;
+            // var hit = Physics2D.Raycast(new Vector3(pos.x,pos.y-1f,pos.z), Vector2.left * leftRightController.direction.AsFloat());
+            //
+            // Debug.DrawRay(new Vector3(pos.x,pos.y-1.1f,pos.z), Vector2.left * leftRightController.direction.AsFloat(), Color.red);
+            //
+            // if (!isStuckCheckRunning && (object) hit.collider != null)
+            // {
+            //     StartCoroutine(WaitAndCheckIfStuck(other));
+            // }
         }
 
-        private IEnumerator WaitAndCheckIfStuck(Collider2D other)
-        {
-            isStuckCheckRunning = true;
-            yield return new WaitForSeconds(0.25f);
-       
-            if (lastDirection == Direction.Left)
-            {
-                lastDirection = Direction.Right;
-                leftRightController.HeadRight();
-            }
-            else
-            {
-                lastDirection = Direction.Left;
-                leftRightController.HeadLeft();
-            }
-        
-            yield return new WaitForSeconds(0.1f);
-            isStuckCheckRunning = false;
-        }
-
-        private void OnCollisionEnter2D(Collision2D other)
-        {
-            if (other.collider.CompareTag("PatrolTurnPoint") || other.collider.CompareTag("Level Tiles"))
-                leftRightController.Turn();
-        }
+        // private IEnumerator WaitAndCheckIfStuck(Collider2D other)
+        // {
+        //     isStuckCheckRunning = true;
+        //     yield return new WaitForSeconds(0.25f);
+        //
+        //     if (lastDirection == Direction.Left)
+        //     {
+        //         lastDirection = Direction.Right;
+        //         leftRightController.HeadRight();
+        //     }
+        //     else
+        //     {
+        //         lastDirection = Direction.Left;
+        //         leftRightController.HeadLeft();
+        //     }
+        //
+        //     yield return new WaitForSeconds(0.1f);
+        //     isStuckCheckRunning = false;
+        // }
+        //
+        // private void OnCollisionEnter2D(Collision2D other)
+        // {
+        //     if (other.collider.CompareTag("PatrolTurnPoint") || other.collider.CompareTag("Level Tiles"))
+        //         leftRightController.Turn();
+        // }
     }
 }

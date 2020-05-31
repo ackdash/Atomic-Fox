@@ -8,18 +8,18 @@ namespace Code.Actor.Rocket
     {
         public ICollector collector;
         public AtomicEvent fuelCollectedEvent;
-        public GameObject rocket;
-        private int rocketId;
+        public GameObject fuelReceptor;
+        private int fuelReceptorId;
 
         public void Start()
         {
-            rocketId = rocket.GetInstanceID();
+            fuelReceptorId = fuelReceptor.GetInstanceID();
             collector = GetComponent<ICollector>();
         }
 
         public void OnTriggerEnter2D(Collider2D other)
         {
-            if (!collector.HasItems || other.gameObject.GetInstanceID() != rocketId) return;
+            if (!collector.HasItems || other.gameObject.GetInstanceID() != fuelReceptorId) return;
 
             var fuel = collector.GetItem("Fuel");
 

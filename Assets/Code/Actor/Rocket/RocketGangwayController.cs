@@ -33,6 +33,8 @@ namespace Code.Actor.Rocket
 
         private void Update()
         {
+            if (isLocked) return;
+            
             if (!isLocked && 
                 (currentState == State.Lowered || currentState == State.Raised)) return;
 

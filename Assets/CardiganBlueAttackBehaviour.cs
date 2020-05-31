@@ -20,7 +20,7 @@ public class CardiganBlueAttackBehaviour : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         Debug.Log("Exiting State");
-        animator.SetBool("IsJumping", false);
+       // animator.SetBool("IsJumping", false);
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

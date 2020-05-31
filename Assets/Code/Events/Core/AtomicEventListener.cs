@@ -1,23 +1,17 @@
-﻿using JetBrains.Annotations;
+﻿using System;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace Code.Events.Core
 {
-    public class AtomicEventListener : MonoBehaviour
+    public class AtomicEventListener : AtomicEventListenerBase
     {
         [SerializeField] [InspectorName("AtomicEvent")] [UsedImplicitly]
-        private AtomicEvent atomicEvent;
-
-        private AtomicEventPipeline atomicEventPipeline;
-
+        protected AtomicEvent atomicEvent;
+       
         [SerializeField] [InspectorName("Target")] [UsedImplicitly]
-        private UnityEvent target;
-
-        private void Awake()
-        {
-            atomicEventPipeline = GetComponent<AtomicEventPipeline>();
-        }
+        protected UnityEvent target;
 
         private void OnEnable()
         {
@@ -35,4 +29,6 @@ namespace Code.Events.Core
             atomicEventPipeline.EnqueueAction(() => target.Invoke());
         }
     }
+
+   
 }

@@ -34,6 +34,12 @@ namespace Code.Movement
             JumpEnded?.Invoke();
         }
 
+        public void SetNotJumpmping()
+        {
+            lastJumpDeltaProp = 0f;
+            IsJumping = false;
+        }
+        
         public void CancelJump() => EndJump();
       
         private void OnCollisionEnter2D()

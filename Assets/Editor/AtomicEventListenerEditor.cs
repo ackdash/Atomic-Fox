@@ -20,6 +20,7 @@ namespace Editor
                 else
                     Debug.LogWarning("You must be playing the game to trigger a game event.");
             }
+            
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Code.Movement
 {
@@ -15,13 +16,26 @@ namespace Code.Movement
         [SerializeField] [InspectorName("Distance to ground")]
         private float radius;
 
+        [SerializeField] [InspectorName("Distance to ground")]
+        private float yOffset = 0.25f;
+        public event Action LeftSurface;
+
         public bool IsOnGround => isOnGround ? isOnGround : Check();
 
         public bool Check()
         {
-            var check = Physics2D.OverlapCircle(transform.position, radius, layerMask);
+            var checkPos = new Vector2(transform.position.x, transform.position.y + yOffset);
+            // Debug.DrawLine();
+            var check = Physics2D.OverlapCircle(checkPos, radius, layerMask);
             isOnGround = (object) check != null;
             return isOnGround;
+        }
+
+        private void Update()
+        {
+            var checkPos = new Vector2(transform.position.x, transform.position.y + yOffset);
+            Debug.DrawLine(new Vector2(checkPos.x - radius / 2f, checkPos.y),
+                new Vector2(checkPos.x + radius / 2f, checkPos.y), Color.magenta);
         }
 
         public void Reset()
@@ -32,6 +46,13 @@ namespace Code.Movement
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (!isOnGround && other.CompareTag(groundTag)) isOnGround = true;
+        }
+        
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            // Debug.Log(other.tag);
+            if (other.CompareTag(groundTag))  LeftSurface?.Invoke();
+           
         }
     }
 }

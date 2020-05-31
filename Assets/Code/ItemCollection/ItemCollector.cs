@@ -13,6 +13,13 @@ namespace Code.ItemCollection
         public bool CanCollect { get; set; }
         public bool HasItems { get; set; }
 
+        private bool gameOver;
+        public void GameOver()
+        {
+            gameOver = true;
+            DropItems();    
+        }
+        
         public Transform GetItem(string itemTag)
         {
             return inventory.FirstOrDefault(item => item.CompareTag(itemTag));
@@ -50,9 +57,15 @@ namespace Code.ItemCollection
             inventory.Clear();
         }
 
+        /// <summary>
+        /// Pick up Item
+        /// Although the inventory is limited to 1 item, the game could be extended to allow multiple persistent
+        /// items (Fuel) or consumables to be collected. 
+        /// </summary>
+        /// <param name="other">Unity Component</param>
         private void Collect(Component other)
         {
-            if (!CanCollect) return;
+            if (inventory.Count > 0 || !CanCollect || gameOver) return;
 
             var collectableItem = other.gameObject.GetComponent<ICollectable>();
 

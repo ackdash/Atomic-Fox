@@ -14,6 +14,7 @@ TagManager:
   - Blooming Flower
   - Hands
   - Fuel Receptor
+  - HumanPlayer
   layers:
   - Default
   - TransparentFX
@@ -31,12 +32,12 @@ TagManager:
   - Blooming Flower
   - Fuel
   - Fuel Splat
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Rocket Body
+  - Tree
+  - Tree - Solid
+  - Rocket Area
+  - PlayerCam1
+  - PlayerCam2
   - 
   - 
   - 
@@ -69,6 +70,9 @@ TagManager:
   - name: Rocket - Background
     uniqueID: 337944217
     locked: 0
+  - name: Fuel
+    uniqueID: 3887452015
+    locked: 0
   - name: Player Character
     uniqueID: 51923575
     locked: 0
@@ -92,4 +96,7 @@ TagManager:
     locked: 0
   - name: GUI
     uniqueID: 1248280033
+    locked: 0
+  - name: Decorative - Overlay
+    uniqueID: 1061653511
     locked: 0

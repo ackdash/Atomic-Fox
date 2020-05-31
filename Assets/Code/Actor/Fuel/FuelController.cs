@@ -9,21 +9,30 @@ namespace Code.Actor.Fuel
     public class FuelController : MonoBehaviour
     {
         private FallChecker fallChecker;
-        public GameObject splatParent;
-        public GameObject splatPrefab;
-        public ParentConstraint parentConstraint;
-        
+        private bool gameOver;
+
         [SerializeField] public bool isCollected;
 
         private ItemCollectable itemCollectable;
+        public ParentConstraint parentConstraint;
         private Rigidbody2D rb;
+
+        private GroundChecker side1Check;
+        private GroundChecker side2Check;
+        public GameObject splatParent;
+        public GameObject splatPrefab;
 
         private void Start()
         {
             rb = GetComponent<Rigidbody2D>();
             fallChecker = GetComponent<FallChecker>();
             itemCollectable = GetComponent<ItemCollectable>();
-            
+            parentConstraint = GetComponent<ParentConstraint>();
+
+            var groundCheckers = GetComponentsInChildren<GroundChecker>();
+            side1Check = groundCheckers[0];
+            side2Check = groundCheckers[1];
+
             rb.gravityScale = 0;
 
             itemCollectable.Collected += () => Collected();
@@ -39,8 +48,14 @@ namespace Code.Actor.Fuel
 
         private void FixedUpdate()
         {
-            if (!fallChecker.IsFalling) return;
-            rb.AddForce(Vector2.left * (50f *Math.Sign( Mathf.Sin(Time.frameCount))));
+            if (!gameOver && !fallChecker.IsFalling || !gameOver) return;
+            rb.AddForce(Vector2.left * (50f * Math.Sign(Mathf.Sin(Time.frameCount))));
+        }
+
+        public void GameOver()
+        {
+            gameOver = true;
+            Dropped();
         }
 
         private void Collected()
@@ -49,15 +64,16 @@ namespace Code.Actor.Fuel
             PreventMovement();
         }
 
-        private void Dropped()
+        public void Dropped()
         {
             AllowMovement();
-            rb.gravityScale = 0.25f;
+            rb.gravityScale = gameOver ? -5f : 0.25f;
         }
 
-        private void Reset()
+        public void Reset()
         {
-            if (parentConstraint) parentConstraint.RemoveSource(0);
+            side1Check.Reset();
+            side2Check.Reset();
             rb.gravityScale = 0f;
             transform.position = transform.parent.position;
             PreventMovement();
@@ -72,22 +88,23 @@ namespace Code.Actor.Fuel
         {
             rb.constraints = RigidbodyConstraints2D.None;
         }
-       
+
         private void OnTriggerEnter2D(Collider2D other)
         {
+            var sc1r = side1Check.Check();
+            var sc2r = side2Check.Check();
+            var comparedTag = other.gameObject.CompareTag("Level Tiles");
+
             if (!itemCollectable.IsCollected
                 && splatParent != null
-                && other.gameObject.CompareTag("Level Tiles"))
+                && other.gameObject.CompareTag("Level Tiles")
+                && side1Check.Check() && side2Check.Check())
             {
-                var position = transform.position;
-                var impact = other.transform.position - position;
-                var xImpact = Mathf.Abs(position.x) - Mathf.Abs(impact.x);
-                var impactUnderneath = (xImpact> -0.5f && xImpact < 0.5f);
-
-                if (!impactUnderneath) return;
-
-                var splat =Instantiate(splatPrefab, transform);
+                var splat = Instantiate(splatPrefab, transform);
                 splat.transform.parent = splatParent.transform;
+
+                if (gameOver) return;
+
                 PreventMovement();
                 itemCollectable.Reset();
             }

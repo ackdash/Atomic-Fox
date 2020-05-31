@@ -7,56 +7,59 @@ namespace Code.Actor.Fox
 {
     public class FoxAttacked : MonoBehaviour, IAttacked
     {
-  
-        [Header("Attack knock back Settings")]
-        public float OnCollisionForceMultiplier;
+        private Direction lastAttackedFrom;
+
+        [Header("Attack knock back Settings")] public float OnCollisionForceMultiplier;
+
         public float OnCollisionYDirectionFactor;
         public float OnStayForceMultiplier;
         public float OnStayForceYDirectionFactor;
-        
+        private Rigidbody2D rb;
+
         public event Action<Direction> UnderAttack;
         public event Action AttackFinished;
-        private Rigidbody2D rb;
-        private Direction lastAttackedFrom;
         public bool IsUnderAttack { get; set; }
-        
+
         private void Start()
         {
             rb = GetComponent<Rigidbody2D>();
         }
 
+        public void Attacked(Direction attackedFrom = Direction.Right)
+        {
+            IsUnderAttack = true;
+            lastAttackedFrom = attackedFrom;
+            UnderAttack?.Invoke(attackedFrom);
+            rb.AddForce(new Vector2(attackedFrom.AsFloat(), OnCollisionYDirectionFactor) * OnCollisionForceMultiplier);
+        }
+
+        public void AttackOnce()
+        {
+            Attacked();
+            FinishAttack();
+        }
+        
+        public void FinishAttack()
+        {
+            IsUnderAttack = false;
+            AttackFinished?.Invoke();
+        }
+
         private void OnCollisionEnter2D(Collision2D other)
         {
             var isAttacker = other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Player");
-            
+
             if (isAttacker)
             {
-                IsUnderAttack = true;
                 var impact = other.transform.position - transform.position;
                 var attackedFrom = impact.x < 0f ? Direction.Right : Direction.Left;
-                lastAttackedFrom = attackedFrom;
-                UnderAttack?.Invoke(attackedFrom);
-                rb.AddForce(new Vector2(attackedFrom.AsFloat(), OnCollisionYDirectionFactor) * OnCollisionForceMultiplier);
+
+                Attacked(attackedFrom);
             }
             else
             {
-                IsUnderAttack = false;
-                AttackFinished?.Invoke();
+                FinishAttack();
             }
         }
-
-        // private void OnCollisionStay2D(Collision2D other)
-        // {
-        //     var isAttacker = other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Player");
-        //    
-        //     if (!isAttacker || IsUnderAttack) return;
-        //     
-        //     IsUnderAttack = true;
-        //     lastAttackedFrom = lastAttackedFrom == Direction.Left? Direction.Right : Direction.Left;
-        //     UnderAttack?.Invoke(lastAttackedFrom);
-        //     rb.AddForce(new Vector2(lastAttackedFrom.AsFloat(), OnStayForceYDirectionFactor) * OnStayForceMultiplier);
-        // }
-
-
     }
 }

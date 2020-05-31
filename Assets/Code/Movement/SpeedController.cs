@@ -12,14 +12,12 @@ namespace Code.Movement
     public class SpeedController : MonoBehaviour, ICurrentSpeed
     {
         private readonly AnimationCurve curve = AnimationCurve.EaseInOut(0.0f, 0.0f, 2.0f, 2.0f);
+        private float curveStep;
         private float defaultSpeed;
         private bool isAccelerating;
 
-        [SerializeField] [Range(0f, 1f)]
-        private float speedShiftFactor = 0.05f;
+        [SerializeField] [Range(0f, 1f)] private float speedShiftFactor = 0.05f;
 
-
-        private float curveStep;
         private float targetSpeed;
         public float CurrentSpeedNormalised { get; private set; }
         public float CurrentSpeed { get; private set; }
@@ -34,7 +32,7 @@ namespace Code.Movement
         private void Update()
         {
             if (!isAccelerating) return;
-            
+
             if (!Mathf.Approximately(targetSpeed, CurrentSpeed))
             {
                 curveStep += Time.deltaTime * 0.75f;
@@ -51,7 +49,7 @@ namespace Code.Movement
         {
             defaultSpeed = speed;
         }
-        
+
         public void OnResetSpeed()
         {
             ResetSpeed();

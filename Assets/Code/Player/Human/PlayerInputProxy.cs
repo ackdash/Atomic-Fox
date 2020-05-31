@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
+using CharacterController = Code.Movement.CharacterController;
 
 namespace Code.Player.Human
 {
@@ -13,6 +14,12 @@ namespace Code.Player.Human
             characterMovementController = team.GetComponentInChildren<CharacterController>();
         }
 
+        public void UpdateTeam(GameObject newTeam)
+        {
+            team = newTeam;
+            characterMovementController = team.GetComponentInChildren<CharacterController>();
+        }
+
         public void OnAttack(InputValue btn) => characterMovementController.Attack(btn);
 
         public void OnJump() => characterMovementController.Jump();
@@ -20,7 +27,7 @@ namespace Code.Player.Human
         public void OnLeft(InputValue btn) => characterMovementController.Left(btn);
 
         public void OnRight(InputValue btn) => characterMovementController.Right(btn);
-
+        
         public void OnStop(InputValue btn) => characterMovementController.Stop(btn);
 
         public void OnTurn() => characterMovementController.Turn();

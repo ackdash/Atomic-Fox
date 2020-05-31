@@ -1,64 +1,129 @@
-﻿using Code.Interfaces;
+﻿using System;
+using Cinemachine;
+using Code.Events.Core;
+using Code.Interfaces;
 using Code.Player.Human;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Animations;
+using UnityEngine.InputSystem;
 
 namespace Code
 {
+    [Serializable]
+    public struct TeamDefinition
+    {
+        public GameObject Team;
+        public GameObject Champion;
+        public PlayerInput Player;
+    }
+
     public class GameManager : MonoBehaviour
     {
-
-        public GameObject[] players;
+        public AtomicEvent gameOverEvent;
         private bool gameRunning = true;
-    
-        void Start()
+        public AtomicEvent gameWonEvent;
+        public GameObject playerContainer;
+        private PlayerInputManager playerInputManager;
+        public AtomicEvent playerWonEvent;
+
+        public Timer resetTimer;
+        public AtomicEvent roundStartedEvent;
+        public Timer roundTimer;
+        public TeamDefinition[] teamDefinitions;
+
+        private void Awake()
         {
-            Debug.Log(players.Length);
+            playerInputManager = GetComponent<PlayerInputManager>();
+            if (!Debug.isDebugBuild) Debug.unityLogger.logEnabled = false;
         }
 
-        void Update()
+        private void OnPlayerJoined(PlayerInput player)
         {
-        
+            var teamIndex = playerInputManager.playerCount - 1;
+            var teamDefinition = teamDefinitions[teamIndex];
+            teamDefinition.Player = player;
+
+            teamDefinition.Player.name = $"Player {playerInputManager.playerCount.ToString()}";
+
+            BindPlayerToChampion(player, teamDefinition);
+            BindPlayerTimers(player, teamIndex);
+            SetUpCamera(player);
+            if (playerContainer != null) player.gameObject.transform.SetParent(playerContainer.transform);
+
+            if (!roundTimer.IsRunning) NewRound();
         }
 
-        public void TimerDone()
+        private void SetUpCamera(PlayerInput player)
         {
-            if (gameRunning)
-            {
-                gameRunning = false;
-                Debug.Log("Game Won");
-            }
-            else
-            {
-                Debug.Log("Timer Finished but the game was won by player");
-            }
+            var mask = LayerMask.NameToLayer($"PlayerCam{playerInputManager.playerCount.ToString()}");
+            var playerVirtualCameraCam = player.GetComponentInChildren<CinemachineVirtualCamera>();
+            var playerCam = player.GetComponentInChildren<Camera>();
+
+            playerVirtualCameraCam.gameObject.layer = mask;
+            playerCam.gameObject.layer = mask;
+
+            var otherPlayerMask = mask == 20 ? 21 : 20;
+            playerCam.cullingMask = ~(1 << otherPlayerMask);
         }
-    
-        public void LevelComplete()
+
+        private void BindPlayerToChampion(PlayerInput player, TeamDefinition teamDefinition)
         {
-            if (!gameRunning)
+            var targetTransform = teamDefinition.Champion.transform;
+            var playerInputProxy = player.GetComponent<PlayerInputProxy>();
+            var parentConstraint = player.GetComponent<ParentConstraint>();
+            var constraintSource = new ConstraintSource {sourceTransform = targetTransform, weight = 1f};
+            parentConstraint.AddSource(constraintSource);
+            playerInputProxy.UpdateTeam(teamDefinition.Team);
+        }
+
+        private void BindPlayerTimers(PlayerInput player, int teamIndex)
+        {
+            var timers = player.GetComponentsInChildren<TextMeshProUGUI>();
+            roundTimer.counterTextUIs[teamIndex] = timers[0];
+            resetTimer.counterTextUIs[teamIndex] = timers[1];
+        }
+
+        public void ShowTitleScreen()
+        {
+            var humans = GameObject.FindGameObjectsWithTag("HumanPlayer");
+            foreach (var human in humans) Destroy(human);
+        }
+
+        public void NewRound()
+        {
+            roundStartedEvent.Trigger();
+            roundTimer.StartTimer();
+            resetTimer.StopTimer();
+        }
+
+        public void RoundOver()
+        {
+            Debug.Log("Round Over");
+
+            var playerWon = false;
+            foreach (var team in teamDefinitions)
             {
-                Debug.Log("Timer Finished but the game was won by player");
-            }
-            else
-            {
-                Debug.Log("Game Won");
-            
-                var playerWon = false; 
-                foreach (var player in players)
+                var progress = team.Team.GetComponent<IProgressInspector>();
+
+                if (progress != null && !playerWon)
                 {
-                    var inputProxy = player.GetComponent<PlayerInputProxy>();
-                
-                    if (inputProxy.team)
-                    {
-                        var completor = inputProxy.team.GetComponent<ICompletor>();
-                        Debug.Log($"{inputProxy.team.tag} Won => {(completor.TargetReached()).ToString()}");
-                        playerWon = true;
-                    }
-                    
-                    if (!playerWon) Debug.LogWarning("Nobody won");
+                    Debug.Log($"{team.Team.name} Won => {progress.HasReachedTarget().ToString()}");
+                    playerWon = progress.HasReachedTarget();
                 }
             }
-            
+
+            var winEvent = (playerWon) ? playerWonEvent : gameWonEvent;
+                winEvent.Trigger();
+
+            GameOver();
+        }
+
+        private void GameOver()
+        {
+            roundTimer.StopTimer();
+            resetTimer.StartTimer();
+            gameOverEvent.Trigger();
         }
     }
 }

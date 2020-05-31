@@ -1,4 +1,5 @@
 ﻿using Code.Data;
+using Code.Interfaces;
 using UnityEngine;
 
 namespace Code.Team
@@ -14,21 +15,5 @@ namespace Code.Team
 
         public bool HasReachedTarget() => currentLevel.Value >= targetLevel.Value;
         public float PercentComplete() => currentLevel.Value / (float) targetLevel.Value * 100;
-    }
-
-    public interface IProgressSetable<T>
-    {
-        void SetProgress(T progress);
-    }
-
-    public interface IProgressable
-    {
-        void Progress();
-    }
-
-    public interface IProgressInspector
-    {
-        bool HasReachedTarget();
-        float PercentComplete();
     }
 }
