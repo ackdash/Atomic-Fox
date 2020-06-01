@@ -63,6 +63,17 @@
                 },
                 {
                     "name": "",
+                    "id": "1fd5476c-e053-45ef-b4cb-ec166db57732",
+                    "path": "<Gamepad>/leftStick/left",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Left",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "dad44a45-433e-4ac4-aa66-d858a375f901",
                     "path": "<Keyboard>/rightArrow",
                     "interactions": "Press(behavior=2)",
@@ -85,6 +96,17 @@
                 },
                 {
                     "name": "",
+                    "id": "0fb922ab-7d04-4997-ab11-5caeffda7d5d",
+                    "path": "<Gamepad>/leftStick/right",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Right",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "899b6e8d-02df-4d07-b5a6-6f11a0435ae4",
                     "path": "<Keyboard>/space",
                     "interactions": "",
@@ -98,6 +120,17 @@
                     "name": "",
                     "id": "63f550ae-4551-4d2a-9f25-685d7ace9eed",
                     "path": "<XInputController>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7d4be657-a81c-4eae-a925-5d1c19f0baa9",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

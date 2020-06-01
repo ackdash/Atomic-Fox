@@ -1,4 +1,5 @@
 ﻿using System;
+using Code.Interfaces.Game;
 using Code.ItemCollection;
 using Code.Movement;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine.Animations;
 
 namespace Code.Actor.Fuel
 {
-    public class FuelController : MonoBehaviour
+    public class FuelController : MonoBehaviour, IResetable
     {
         private FallChecker fallChecker;
         private bool gameOver;

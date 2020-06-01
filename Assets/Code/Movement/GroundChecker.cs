@@ -1,9 +1,10 @@
 ﻿using System;
+using Code.Interfaces.Game;
 using UnityEngine;
 
 namespace Code.Movement
 {
-    public class GroundChecker : MonoBehaviour
+    public class GroundChecker : MonoBehaviour, IResetable
     {
         [SerializeField] [InspectorName("Ground Tag")]
         private string groundTag;
@@ -25,7 +26,6 @@ namespace Code.Movement
         public bool Check()
         {
             var checkPos = new Vector2(transform.position.x, transform.position.y + yOffset);
-            // Debug.DrawLine();
             var check = Physics2D.OverlapCircle(checkPos, radius, layerMask);
             isOnGround = (object) check != null;
             return isOnGround;
@@ -38,10 +38,7 @@ namespace Code.Movement
                 new Vector2(checkPos.x + radius / 2f, checkPos.y), Color.magenta);
         }
 
-        public void Reset()
-        {
-            isOnGround = false;
-        }
+        public void Reset() => isOnGround = false;
 
         private void OnTriggerEnter2D(Collider2D other)
         {
@@ -50,9 +47,7 @@ namespace Code.Movement
         
         private void OnTriggerExit2D(Collider2D other)
         {
-            // Debug.Log(other.tag);
             if (other.CompareTag(groundTag))  LeftSurface?.Invoke();
-           
         }
     }
 }

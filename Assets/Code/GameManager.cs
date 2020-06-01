@@ -99,22 +99,16 @@ namespace Code
 
         public void RoundOver()
         {
-            Debug.Log("Round Over");
-
             var playerWon = false;
             foreach (var team in teamDefinitions)
             {
                 var progress = team.Team.GetComponent<IProgressInspector>();
 
-                if (progress != null && !playerWon)
-                {
-                    Debug.Log($"{team.Team.name} Won => {progress.HasReachedTarget().ToString()}");
-                    playerWon = progress.HasReachedTarget();
-                }
+                if (progress != null && !playerWon) playerWon = progress.HasReachedTarget();
             }
 
-            var winEvent = (playerWon) ? playerWonEvent : gameWonEvent;
-                winEvent.Trigger();
+            var winEvent = playerWon ? playerWonEvent : gameWonEvent;
+            winEvent.Trigger();
 
             GameOver();
         }

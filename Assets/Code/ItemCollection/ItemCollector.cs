@@ -75,19 +75,6 @@ namespace Code.ItemCollection
             inventory.Add(other.transform);
             collectableItem.Collect(transform);
             ItemCollected?.Invoke();
-            // else 
-
-            // if (collector != null)
-            // {
-            //     inventory.ForEach(a =>
-            //     {
-            //         var _pc = a.GetComponent<ParentConstraint>();
-            //         
-            //         a.position = a.parent.position;
-            //     });
-            //     inventory.Clear();
-            //     HasItems = false;
-            // }
         }
     }
 }
