@@ -12,6 +12,8 @@ Left/Right - Left stick, arrow Keys
 
 Jump - A button (xbox controller),  East (Gamepad), Space
 
+Fill the rocket ship's fuel tank with fuel from the the Caesium Flower. Then board the rocket to take off.
+
 ---
 
 Created for https://itch.io/jam/gamedevtv-community-jam
