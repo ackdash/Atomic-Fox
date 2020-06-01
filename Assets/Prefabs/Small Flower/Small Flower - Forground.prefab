@@ -7,9 +7,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1228895615, guid: 52e043bf91d768742b5e4c266b7213dc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 1228895616, guid: 52e043bf91d768742b5e4c266b7213dc, type: 3}
       propertyPath: m_ApplyToSortingLayers.Array.size
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1228895616, guid: 52e043bf91d768742b5e4c266b7213dc, type: 3}
       propertyPath: m_ApplyToSortingLayers.Array.data[2]
@@ -21,7 +25,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1228895616, guid: 52e043bf91d768742b5e4c266b7213dc, type: 3}
       propertyPath: m_Intensity
-      value: 2.9
+      value: 0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 1228895616, guid: 52e043bf91d768742b5e4c266b7213dc, type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.data[4]
+      value: 51923575
+      objectReference: {fileID: 0}
+    - target: {fileID: 1228895616, guid: 52e043bf91d768742b5e4c266b7213dc, type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.data[5]
+      value: 51923575
       objectReference: {fileID: 0}
     - target: {fileID: 5036701414731366617, guid: 52e043bf91d768742b5e4c266b7213dc,
         type: 3}
