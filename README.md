@@ -19,3 +19,7 @@ Fill the rocket ship's fuel tank with fuel from the the Caesium Flower. Then boa
 Created for https://itch.io/jam/gamedevtv-community-jam
 
 Wanted to make something using Unity, not very familiar with it (or game dev really). Learn't a lot about what to do and not to do... mainly the what not! There are  number of decisions that were probably a little unfortunate. Also, ran out of time to implement everything I had planned but there's a game loop! Had a great time putting it together.
+
+---
+
+Font used in the game is Karmatic Arcade, obtained from: https://www.dafont.com/font-comment.php?file=karmatic_arcade&fpp=200&text=Atomic+Fox&back=theme
