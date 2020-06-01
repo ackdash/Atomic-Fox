@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Code.Interfaces;
 using Code.Movement;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace Code.Actor.Fox
         public float OnStayForceMultiplier;
         public float OnStayForceYDirectionFactor;
         private Rigidbody2D rb;
+        [SerializeField] private float autoCancelAttackInSeconds;
 
         public event Action<Direction> UnderAttack;
         public event Action AttackFinished;
@@ -31,12 +33,19 @@ namespace Code.Actor.Fox
             lastAttackedFrom = attackedFrom;
             UnderAttack?.Invoke(attackedFrom);
             rb.AddForce(new Vector2(attackedFrom.AsFloat(), OnCollisionYDirectionFactor) * OnCollisionForceMultiplier);
+            StartCoroutine(FinishAttackRoutine());
         }
 
-        public void AttackOnce()
+        public void AttackAndFinishImmediately()
         {
             Attacked();
             FinishAttack();
+        }
+
+        private IEnumerator  FinishAttackRoutine()
+        { 
+            yield return new WaitForSeconds(autoCancelAttackInSeconds);
+            if (IsUnderAttack) FinishAttack();
         }
         
         public void FinishAttack()
@@ -47,7 +56,7 @@ namespace Code.Actor.Fox
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            var isAttacker = other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Player");
+            var isAttacker = other.gameObject.CompareTag("Enemy");
 
             if (isAttacker)
             {

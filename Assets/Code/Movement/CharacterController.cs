@@ -78,10 +78,13 @@ namespace Code.Movement
         private void OnAttacked(Direction direction)
         {
             itemCollector.CanCollect = false;
-            bufferedJump = -10f;
-            animator.SetBool(IsAttacked, true);
-            animator.SetBool(AnimatorIsCarrying, false);
+            characterGravityController.ApplyGravity();
             jumpController.CancelJump();
+            jumpController.SetNotJumpmping();
+            bufferedJump = -10f;
+            animator.SetBool(IsAttacked, true);            
+            animator.SetBool(AnimatorIsJumping, false);
+            animator.SetBool(AnimatorIsCarrying, false);
             if (hasItemCollector && itemCollector.HasItems) itemCollector.DropItems();
         }
 
@@ -108,7 +111,7 @@ namespace Code.Movement
             var horizontalTranslation = leftRightController.Calculate();
             var verticalTranslation = jumpController.Calculate();
             var fallSpeed = fallChecker.Calculate();
-
+           
             if (
                 !(hasAttackController && attackedController.IsUnderAttack
                     ) && !jumpController.IsJumping && !fallChecker.IsFalling && groundChecker.Check() &&
