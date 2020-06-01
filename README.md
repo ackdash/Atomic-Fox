@@ -14,6 +14,9 @@ Jump - A button (xbox controller),  East (Gamepad), Space
 
 Fill the rocket ship's fuel tank with fuel from the the Caesium Flower. Then board the rocket to take off. If the timer runs out the fuels goes stale and you loose!
 
+1 or 2 players. 
+First person to join plays as Tick the Fox, the second joins as the Blue Cardigan. 
+
 ---
 
 Created for https://itch.io/jam/gamedevtv-community-jam
