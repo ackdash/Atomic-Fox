@@ -26,3 +26,5 @@ Wanted to make something using Unity, not very familiar with it (or game dev rea
 ---
 
 Font used in the game is Karmatic Arcade, obtained from: https://www.dafont.com/font-comment.php?file=karmatic_arcade&fpp=200&text=Atomic+Fox&back=theme
+
+The main event system is based on the [Unite Austin 2017 - Game Architecture with Scriptable Objects](https://www.youtube.com/watch?v=raQ3iHhE_Kk) talk by Ryan Hipple.
