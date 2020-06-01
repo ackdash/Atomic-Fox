@@ -10,7 +10,7 @@ Our villainous character, Tick, is a fox from a far away land. Tick stole time f
 
 Left/Right - Left stick, arrow Keys
 
-Jump - A button (xbox controller),  East (Gamepad), Space
+Jump - B button (xbox controller),  East (Gamepad), Space
 
 Fill the rocket ship's fuel tank with fuel from the the Caesium Flower. Then board the rocket to take off. If the timer runs out the fuels goes stale and you loose!
 
