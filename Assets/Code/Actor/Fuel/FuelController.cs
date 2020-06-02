@@ -23,19 +23,22 @@ namespace Code.Actor.Fuel
         public GameObject splatParent;
         public GameObject splatPrefab;
 
+        private Vector2 spawnLocation;
+
         private void Start()
         {
             rb = GetComponent<Rigidbody2D>();
             fallChecker = GetComponent<FallChecker>();
             itemCollectable = GetComponent<ItemCollectable>();
             parentConstraint = GetComponent<ParentConstraint>();
-
+        
             var groundCheckers = GetComponentsInChildren<GroundChecker>();
             side1Check = groundCheckers[0];
             side2Check = groundCheckers[1];
 
             rb.gravityScale = 0;
-
+            spawnLocation = transform.position;
+                
             itemCollectable.Collected += () => Collected();
             itemCollectable.Dropped += () => Dropped();
             itemCollectable.StateReset += () => Reset();
@@ -76,7 +79,7 @@ namespace Code.Actor.Fuel
             side1Check.Reset();
             side2Check.Reset();
             rb.gravityScale = 0f;
-            transform.position = transform.parent.position;
+            transform.position = spawnLocation;
             PreventMovement();
         }
 
