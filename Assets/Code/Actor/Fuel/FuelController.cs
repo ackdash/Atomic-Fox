@@ -82,13 +82,14 @@ namespace Code.Actor.Fuel
             else gameObject.SetActive(false);
         }
 
-        private void Respawn()
+        public void Respawn()
         {
             side1Check.Reset();
             side2Check.Reset();
             rb.gravityScale = 0f;
             transform.position = spawnLocation;
             PreventMovement();
+            gameObject.SetActive(true);
         }
 
         private void PreventMovement()
