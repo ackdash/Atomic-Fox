@@ -16,11 +16,11 @@ namespace Code
 
         [SerializeField] private bool showCountDownInUI;
 
-        private float timeLeft;
+        [SerializeField] private float timeLeft;
 
         [SerializeField] private AtomicEvent timerDoneEvent;
 
-        private bool timerIsRunning;
+        [SerializeField] private bool timerIsRunning;
         
         public bool IsRunning
         {
