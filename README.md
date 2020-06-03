@@ -21,7 +21,9 @@ First person to join plays as Tick the Fox, the second joins as the Blue Cardiga
 
 Created for https://itch.io/jam/gamedevtv-community-jam
 
-Learn't a lot about what to do and not to do... mainly the what not!
+---
+
+The post-submission branch contains a number of bug fixes and changes that'll be merged into master on conclusion of the jam.
 
 ---
 
