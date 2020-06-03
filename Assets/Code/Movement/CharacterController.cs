@@ -229,7 +229,6 @@ namespace Code.Movement
 
         public void Reset()
         {
-            itemCollector.CanCollect = true;
             characterGravityController.ApplyGravity();
             jumpController.CancelJump();
             jumpController.SetNotJumpmping();
@@ -237,7 +236,11 @@ namespace Code.Movement
             animator.SetBool(IsAttacked, false);            
             animator.SetBool(AnimatorIsJumping, false);
             animator.SetBool(AnimatorIsCarrying, false);
-            if (hasItemCollector && itemCollector.HasItems) itemCollector.DropItems();
+            if (hasItemCollector && itemCollector.HasItems)
+            {
+                itemCollector.CanCollect = true;
+                itemCollector.DropItems();
+            }
             transform.position = spawnPoint;
         }
     }
