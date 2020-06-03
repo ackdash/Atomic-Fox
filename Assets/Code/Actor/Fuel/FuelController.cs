@@ -13,6 +13,7 @@ namespace Code.Actor.Fuel
         private bool gameOver;
 
         [SerializeField] public bool isCollected;
+        [SerializeField] public bool canRespawn;
 
         private ItemCollectable itemCollectable;
         public ParentConstraint parentConstraint;
@@ -20,6 +21,7 @@ namespace Code.Actor.Fuel
 
         private GroundChecker side1Check;
         private GroundChecker side2Check;
+        
         public GameObject splatParent;
         public GameObject splatPrefab;
 
@@ -75,6 +77,12 @@ namespace Code.Actor.Fuel
         }
 
         public void Reset()
+        {
+            if (canRespawn) Respawn();
+            else gameObject.SetActive(false);
+        }
+
+        private void Respawn()
         {
             side1Check.Reset();
             side2Check.Reset();
