@@ -26,6 +26,7 @@ namespace Code
         public GameObject playerContainer;
         private PlayerInputManager playerInputManager;
         public AtomicEvent playerWonEvent;
+        public AtomicEvent playerJoinedEvent;
 
         public Timer resetTimer;
         public AtomicEvent roundStartedEvent;
@@ -88,6 +89,8 @@ namespace Code
         {
             var humans = GameObject.FindGameObjectsWithTag("HumanPlayer");
             foreach (var human in humans) Destroy(human);
+            roundTimer.StopTimer();
+            resetTimer.StopTimer();
         }
 
         public void NewRound()
