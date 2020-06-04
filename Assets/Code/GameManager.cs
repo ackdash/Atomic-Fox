@@ -26,6 +26,7 @@ namespace Code
         public GameObject playerContainer;
         private PlayerInputManager playerInputManager;
         public AtomicEvent playerWonEvent;
+        public AtomicEvent gameReady;
         public AtomicEvent playerJoinedEvent;
 
         public Timer resetTimer;
@@ -39,6 +40,11 @@ namespace Code
             if (!Debug.isDebugBuild) Debug.unityLogger.logEnabled = false;
         }
 
+        private void Start()
+        {
+            gameReady.Trigger();
+        }
+        
         private void OnPlayerJoined(PlayerInput player)
         {
             var teamIndex = playerInputManager.playerCount - 1;
