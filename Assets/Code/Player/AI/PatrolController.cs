@@ -1,6 +1,8 @@
-﻿using Code.Movement;
+﻿using System;
+using Code.Movement;
 using UnityEngine;
 using CharacterController = Code.Movement.CharacterController;
+using Random = UnityEngine.Random;
 
 namespace Code.Player.AI
 {
@@ -70,7 +72,14 @@ namespace Code.Player.AI
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag("PatrolTurnPoint")) currentMovement = Turn();
-            if (other.CompareTag("PatrolTurnPoint")) currentMovement = Turn();
         }
+
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Level Tiles")) return;
+            
+            currentMovement = Turn();
+        }
+
     }
 }
