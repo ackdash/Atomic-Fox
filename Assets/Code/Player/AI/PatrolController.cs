@@ -1,27 +1,13 @@
-﻿using System;
+﻿using System.Linq;
+using Code.Actor;
 using Code.Movement;
 using UnityEngine;
 using CharacterController = Code.Movement.CharacterController;
-using Random = UnityEngine.Random;
 
 namespace Code.Player.AI
 {
     public class PatrolController : MonoBehaviour
     {
-        private enum AiAction
-        {
-            Jump,
-            Attack,
-            Alert
-        }
-
-        private enum AiMovement
-        {
-            Left,
-            Right,
-            Stop
-        }
-
         private CharacterController characterController;
         private AiMovement currentMovement;
         private bool isStuckCheckRunning;
@@ -51,18 +37,30 @@ namespace Code.Player.AI
 
         private void Start()
         {
+            MapGroundCheckers();
+            MapHandsInteractions();
             characterController = GetComponent<CharacterController>();
+            currentMovement = PickMovement();
 
+            turnChecker.LeftSurface += () => { currentMovement = Turn(); };
+        }
+
+        private void MapGroundCheckers()
+        {
             var groundCheckers = GetComponentsInChildren<GroundChecker>();
             foreach (var checker in groundCheckers)
                 if (checker.name.ToLower().Contains("sensor"))
                     turnChecker = checker;
                 else
                     jumpCheck = checker;
+        }
 
-            currentMovement = PickMovement();
-
-            turnChecker.LeftSurface += () => { currentMovement = Turn(); };
+        private void MapHandsInteractions()
+        {
+            var handInteractions = GetComponentsInChildren<InteractionEventProxy>()
+                .First(r => r.CompareTag("Hands"));
+            
+            handInteractions.CollisionInteracted += OnHandCollisionEnter2D;
         }
 
         private AiMovement Turn() => currentMovement == AiMovement.Right ? AiMovement.Left : AiMovement.Right;
@@ -77,9 +75,29 @@ namespace Code.Player.AI
         private void OnCollisionEnter2D(Collision2D other)
         {
             if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Level Tiles")) return;
-            
+
             currentMovement = Turn();
         }
 
+        private void OnHandCollisionEnter2D(Collision2D other)
+        {
+            if (!other.gameObject.CompareTag("Level Tiles")) return;
+
+            currentMovement = Turn();
+        }
+
+        private enum AiAction
+        {
+            Jump,
+            Attack,
+            Alert
+        }
+
+        private enum AiMovement
+        {
+            Left,
+            Right,
+            Stop
+        }
     }
 }
