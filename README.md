@@ -2,6 +2,8 @@
 
 GameDev.TV  Game Jam. Theme is Time
 
+> The post-submission branch contains a number of bug fixes and changes that'll be merged into master on conclusion of jam voting.
+
 Atomic Fox is a single scene arcade 2D platformer. The game is set in a bioluminescent forest. Within the forest there exists the rare Caesium Flower which naturally expels the fuel (Caesium) that the protagonists require. But there’s a catch, the forest is full of Cardigans  - The Protectors of Caesium!
 
 Our villainous character, Tick, is a fox from a far away land. Tick stole time from the Cardigans to stay young and now Tick has to get away, but in order to do so Tick must refuel. If Tick doesn’t get away, the poor fox will become old once again! Oh no! So help Tick avoid the Cardigans, collect fuel and escape time!
@@ -20,10 +22,6 @@ First person to join plays as Tick the Fox, the second joins as the Blue Cardiga
 ---
 
 Created for https://itch.io/jam/gamedevtv-community-jam
-
----
-
-The post-submission branch contains a number of bug fixes and changes that'll be merged into master on conclusion of the jam.
 
 ---
 
