@@ -1,12 +1,13 @@
 ﻿using System.Linq;
 using Code.Interfaces;
+using Code.Interfaces.Game;
 using Code.ItemCollection;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Code.Movement
 {
-    public class CharacterController : MonoBehaviour
+    public class CharacterController : MonoBehaviour, IResetable
     {
         private static readonly int AnimatorHorizontalSpeed = Animator.StringToHash("HorizontalSpeed");
         private static readonly int AnimatorFallSpeed = Animator.StringToHash("FallSpeed");
@@ -36,6 +37,8 @@ namespace Code.Movement
         private bool rightIsDown;
         private SpeedController speedController;
         [SerializeField] private bool speedControllerEnabled = true;
+        private Vector2 spawnPoint;
+        private float spawnPointYOffset;
 
         private void Start()
         {
@@ -71,6 +74,8 @@ namespace Code.Movement
             jumpController.JumpEnded += () => OnJumpEnded();
 
             fallChecker.StartedFalling += () => OnStartedFalling();
+
+            spawnPoint = new Vector2(transform.position.x, transform.position.y + spawnPointYOffset);
         }
 
         public void Attack(InputValue btn) => attackController?.Attack(btn);
@@ -220,6 +225,23 @@ namespace Code.Movement
         {
             leftRightController.Turn();
             animator.SetFloat(AnimatorHorizontalSpeed, leftRightController.HorizontalSpeed);
+        }
+
+        public void Reset()
+        {
+            characterGravityController.ApplyGravity();
+            jumpController.CancelJump();
+            jumpController.SetNotJumpmping();
+            bufferedJump = -10f;
+            animator.SetBool(IsAttacked, false);            
+            animator.SetBool(AnimatorIsJumping, false);
+            animator.SetBool(AnimatorIsCarrying, false);
+            if (hasItemCollector && itemCollector.HasItems)
+            {
+                itemCollector.CanCollect = true;
+                itemCollector.DropItems();
+            }
+            transform.position = spawnPoint;
         }
     }
 }

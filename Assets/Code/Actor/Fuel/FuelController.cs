@@ -13,6 +13,7 @@ namespace Code.Actor.Fuel
         private bool gameOver;
 
         [SerializeField] public bool isCollected;
+        [SerializeField] public bool canRespawn;
 
         private ItemCollectable itemCollectable;
         public ParentConstraint parentConstraint;
@@ -20,8 +21,11 @@ namespace Code.Actor.Fuel
 
         private GroundChecker side1Check;
         private GroundChecker side2Check;
+        
         public GameObject splatParent;
         public GameObject splatPrefab;
+
+        private Vector2 spawnLocation;
 
         private void Start()
         {
@@ -29,13 +33,14 @@ namespace Code.Actor.Fuel
             fallChecker = GetComponent<FallChecker>();
             itemCollectable = GetComponent<ItemCollectable>();
             parentConstraint = GetComponent<ParentConstraint>();
-
+        
             var groundCheckers = GetComponentsInChildren<GroundChecker>();
             side1Check = groundCheckers[0];
             side2Check = groundCheckers[1];
 
             rb.gravityScale = 0;
-
+            spawnLocation = transform.position;
+                
             itemCollectable.Collected += () => Collected();
             itemCollectable.Dropped += () => Dropped();
             itemCollectable.StateReset += () => Reset();
@@ -73,11 +78,18 @@ namespace Code.Actor.Fuel
 
         public void Reset()
         {
+            if (canRespawn) Respawn();
+            else gameObject.SetActive(false);
+        }
+
+        public void Respawn()
+        {
             side1Check.Reset();
             side2Check.Reset();
             rb.gravityScale = 0f;
-            transform.position = transform.parent.position;
+            transform.position = spawnLocation;
             PreventMovement();
+            gameObject.SetActive(true);
         }
 
         private void PreventMovement()

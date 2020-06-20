@@ -26,6 +26,8 @@ namespace Code
         public GameObject playerContainer;
         private PlayerInputManager playerInputManager;
         public AtomicEvent playerWonEvent;
+        public AtomicEvent gameReady;
+        public AtomicEvent playerJoinedEvent;
 
         public Timer resetTimer;
         public AtomicEvent roundStartedEvent;
@@ -38,6 +40,11 @@ namespace Code
             if (!Debug.isDebugBuild) Debug.unityLogger.logEnabled = false;
         }
 
+        private void Start()
+        {
+            gameReady.Trigger();
+        }
+        
         private void OnPlayerJoined(PlayerInput player)
         {
             var teamIndex = playerInputManager.playerCount - 1;
@@ -88,6 +95,8 @@ namespace Code
         {
             var humans = GameObject.FindGameObjectsWithTag("HumanPlayer");
             foreach (var human in humans) Destroy(human);
+            roundTimer.StopTimer();
+            resetTimer.StopTimer();
         }
 
         public void NewRound()

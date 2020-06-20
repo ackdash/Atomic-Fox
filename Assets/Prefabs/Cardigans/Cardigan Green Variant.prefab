@@ -1,5 +1,31 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &4482453435833257943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7271997073515129120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b31ccd5c50cb43a08f8f5b6311ad31da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1508364035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7302990645520820710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a48ba71c2c5d26a47bbe9a587899bc25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackProjectilePrefab: {fileID: 8844514501916677764, guid: a66e7bbf0395a784f9f8458541c11189,
+    type: 3}
 --- !u!114 &975047179014533445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28,20 +54,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d21426f1496b494794277327294599c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1508364035
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7302990645520820710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a48ba71c2c5d26a47bbe9a587899bc25, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AttackProjectilePrefab: {fileID: 8844514501916677764, guid: a66e7bbf0395a784f9f8458541c11189,
-    type: 3}
 --- !u!1001 &4245520436997141748
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -155,6 +167,10 @@ PrefabInstance:
       propertyPath: m_Size.y
       value: 1.48
       objectReference: {fileID: 0}
+    - target: {fileID: 62908591, guid: 0dbd522cc9c347c46b52c08fa536f0f9, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 488322619, guid: 0dbd522cc9c347c46b52c08fa536f0f9, type: 3}
       propertyPath: ghostJumpBuffer
       value: 10
@@ -166,7 +182,7 @@ PrefabInstance:
     - target: {fileID: 122227775407745749, guid: 0dbd522cc9c347c46b52c08fa536f0f9,
         type: 3}
       propertyPath: m_Name
-      value: Cardigan Green Variant - 1
+      value: Cardigan Green Variant
       objectReference: {fileID: 0}
     - target: {fileID: 122227775407745749, guid: 0dbd522cc9c347c46b52c08fa536f0f9,
         type: 3}
@@ -300,6 +316,12 @@ GameObject:
 --- !u!4 &7302990645520820709 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 122227775407745750, guid: 0dbd522cc9c347c46b52c08fa536f0f9,
+    type: 3}
+  m_PrefabInstance: {fileID: 7271997072442229555}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7271997073515129120 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1075128851, guid: 0dbd522cc9c347c46b52c08fa536f0f9,
     type: 3}
   m_PrefabInstance: {fileID: 7271997072442229555}
   m_PrefabAsset: {fileID: 0}

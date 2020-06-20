@@ -35,7 +35,6 @@ namespace Code.ItemCollection
         {
             RemoveAllSources();
             col.enabled = true;
-            transform.position = transform.parent.transform.position;
             IsCollected = false;
             StateReset?.Invoke();
         }
